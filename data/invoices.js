@@ -1,0 +1,1 @@
+import {invoices} from '../config/mongoCollections.js';

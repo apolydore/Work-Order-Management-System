@@ -1,0 +1,1 @@
+import {userAuth} from '../config/mongoCollections.js';

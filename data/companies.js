@@ -1,0 +1,1 @@
+import {companies} from '../config/mongoCollections.js';
