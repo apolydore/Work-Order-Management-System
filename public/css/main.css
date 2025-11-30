@@ -8,6 +8,13 @@ html, body {
     padding: 0; 
 }
 
+/*this just makes the nav scroll when you scroll*/
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 header nav {
     padding: 10px;
     display: flex;
@@ -37,9 +44,14 @@ header nav ul li {
 header nav li a {
     text-decoration: none;
     color: #90A1D2;
-    font-family:"Roboto", sans-serif;
+    font-family: "Sen", sans-serif;
     font-size: 15px;
     font-weight: 350; 
+}
+
+header nav li a:hover{
+    color: #FF692A; 
+    font-weight: 700;
 }
 
 header nav #buttonContainer {
@@ -55,7 +67,7 @@ header nav #buttonContainer {
     padding: 5px;
     width: 75px;
     color: #fff;
-    font-family: "Roboto", sans-serif;
+    font-family: "Sen", sans-serif;
     font-size: 13px;
     font-weight: 350;
     cursor: pointer; 
@@ -74,7 +86,7 @@ header nav #buttonContainer {
     padding: 5px;
     width: 100px;
     color:#90A1D2;
-    font-family: "Roboto", sans-serif;
+    font-family: "Sen", sans-serif;
     font-size: 13px;
     font-weight: 350;
     cursor: pointer;
@@ -89,10 +101,13 @@ header nav #buttonContainer {
 
 #banner{
     text-align: center;
+    padding: 50px;
 }
 
 #aboveHeader{
-    font-family: "Roboto", sans-serif;
+    font-family: "Sen", sans-serif;
+    font-weight: 100;
+    font-style: normal;
     font-size: 13px;
     color:#A7AEBE;
 }
@@ -100,7 +115,107 @@ header nav #buttonContainer {
 #banner h1{
     font-family: "Bebas Neue", sans-serif;
     font-weight: 600;
-    font-size: 60px;
+    font-size: 100px;
+    margin: 0; 
+    letter-spacing: 4px;
+    color: #101C30;
+    z-index: 1; 
+    position: relative; 
+    display: inline-block;
 }
 
+#banner h1::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 800px;
+    height: 35px;
+    background-color: #EDE9FE;
+    z-index: -1;
+}
 
+#description{
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 30px;
+    color: #101C30; 
+    padding-top: none; 
+}
+
+#description bdi {
+    color: #97c1f3; 
+}
+
+#getStarted {
+    display: inline-block;
+    padding: 8px 26px;
+    border-radius: 200px;
+    border: none; 
+    background: linear-gradient(180deg, #ffc2a8 5%, #ff9445 10%, #ff692a 100%);
+    font-family: "Sen", sans-serif;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    margin-top:10px;
+}   
+
+#getStarted:hover {
+    transform: translateY(1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+#getStarted:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+
+#mainSection {
+    background: linear-gradient(to bottom, #ffffff 0%, #CFE8F4 40%, #94CEEB 100%);
+    padding: 40px 0 100px;
+}
+
+#mainImg {
+    position: relative; 
+    bottom: 60px;
+}
+
+#mainImg img {
+    width: 92%;
+    display: block; 
+    margin: 0 auto; 
+    padding-top: 20px;
+}
+
+#elementOne {
+    height: 50px; 
+    width: 130px; 
+    background-color: #EDE9FE;
+    z-index: 1;
+    position: absolute; 
+    bottom: 443px;
+    border-radius: 30px;
+}
+
+#elementTwo {
+    height: 50px;
+    width: 130px;
+    background-color: #fff;
+    z-index: 1; 
+    position: absolute; 
+    bottom: 195px;
+    border-radius: 30px;
+    left: 750px;
+}
+
+#about{
+    position: relative;
+    margin-top: -200px;
+    padding-top: 40px;
+    background-color: white; 
+}
