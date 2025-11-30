@@ -1,0 +1,106 @@
+/*resetting default spacing so that there is no whitespace in nav*/
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0; 
+}
+
+header nav {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F9FAFB; 
+}
+
+header nav img {
+    height: 23px; 
+}
+
+header nav ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0; 
+}
+
+header nav li a {
+    text-decoration: none;
+    color: #90A1D2;
+    font-family:"Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 350; 
+}
+
+header nav #buttonContainer {
+    display: flex;
+    gap: 0.5rem; 
+}
+
+
+#login {
+    background-color: #90A1D2;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+    width: 75px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 350;
+    cursor: pointer; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#login:active, #jobRequest:active{
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transform: translateY(1px);
+}
+
+#jobRequest {
+    background-color: #F9FAFB;
+    border:1px solid #90A1D2;
+    border-radius: 15px;
+    padding: 5px;
+    width: 100px;
+    color:#90A1D2;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 350;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 10px; 
+}
+
+#banner{
+    text-align: center;
+}
+
+#aboveHeader{
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    color:#A7AEBE;
+}
+
+#banner h1{
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+}
+
+

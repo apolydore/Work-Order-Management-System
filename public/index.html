@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>wrkly</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="css/main.css">
+
+        <!--Roboto Font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
+        <!--Bebas Neue Font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <img src="imgs/wrkly.png">
+                <ul>
+                    <li><a href="#banner">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contactUs">Contact Us</a></li>
+                </ul>
+                <div id="buttonContainer">
+                    <button id="login">Log In</button>
+                    <button id="jobRequest">Job Request</button>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div id="banner">
+                <p id="aboveHeader">work made easy - for every job, every site</p>
+                <h1>Welcome to wrkly</h1>
+                <p id="description">
+                    a <bdi>work order management system</bdi>
+                    designed to organize you in an efficient and effective manner.
+                </p>
+                <button id="getStarted">Get Started</button>
+            </div>
+
+            <div id="mainImg">
+                <img src="#">
+                <div id="elementOne"></div>
+                <div id="elementTwo"></div>
+            </div>
+
+            <div id="about">
+                <h1>About Us</h1>
+                <p>Big paragraph about the work order management system </p>
+            </div>
+
+            <div id="features">
+                <h1>Features</h1>
+                <div id="featureOne">Some text about one feature</div>
+                <div id="featureTwo">Some text about another feature</div>
+                <div id="featureThree">Some text about yet another feature</div>
+            </div>
+
+            <div id="contactUs">
+                <h1>Contact Us</h1>
+                <form action="/contact" method="POST">
+                    <label for="name">
+                        Name 
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </label>
+                    <label for="email">
+                        E-mail Address
+                        <input type="email" id="email" name="email" placeholder="jdoe@email.com" required>
+                    </label>
+                    <label for="category">
+                        Reason for Contact 
+                        <select id="category" name="category" required>
+                            <option value="">-- Please choose an option --</option>
+                            <option value="inquiry">General Inquiry</option>
+                            <option value="emergency">Emergency Repair</option>
+                            <option value="quote">Getting a Quote</option>
+                            <option value="followup">Follow-up on Existing Job</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </label>
+                    <label for="message">
+                        Message 
+                        <textarea id="message" name="message" rows="5" placeholder="Enter a message here." required></textarea>
+                    </label>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+
+        </footer>
+    </body>
+</html>
