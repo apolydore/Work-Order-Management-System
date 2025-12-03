@@ -67,7 +67,7 @@ const checkSkills = (skills) => {
     const normSkills = skills.map((skill, indx) => {
         const label = `skills[${indx}]`;
         const trimmed = checkAlpha(skill, label);
-        return trimmed.toLowerCase;
+        return trimmed.toLowerCase();
     });
 
     return normSkills; 

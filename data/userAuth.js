@@ -9,7 +9,7 @@ const checkString = (val, varName) => {
     if (typeof val !== 'string') throw `${varName} must be a string`;
 
     const trimmed = val.trim();
-    if (trimmed.length === 0) `${varName} cannot be an empty string or just spaces`;
+    if (trimmed.length === 0) throw `${varName} cannot be an empty string or just spaces`;
     return trimmed; 
 }
 
