@@ -29,10 +29,14 @@ const checkName = (name, fieldName) => {
     return trimmed; 
 }
 
-//for role and city, ensure only letters
 const checkRole = (role) => {
-    const trimmed = checkAlpha(role, 'role');
-    return trimmed.toLowerCase();
+    const trimmed = checkString(role, 'role').toLowerCase();
+
+    //changed this to only allow these roles, makes the login for admin or contractor dashboard easier
+    const allowedRoles = ['admin', 'contractor'];
+
+    if (!allowedRoles.includes(trimmed)) throw 'role must be either "admin" or "contractor"';
+    return trimmed; 
 }
 
 const checkCity = (city) => {
