@@ -205,7 +205,7 @@ header nav #buttonContainer {
 #elementTwo {
     height: 50px;
     width: 130px;
-    background-color: #fff;
+    background-color: #f0f1fc;
     z-index: 1; 
     position: absolute; 
     bottom: 195px;
@@ -214,8 +214,127 @@ header nav #buttonContainer {
 }
 
 #about{
+    margin: 40px auto 0;
+    padding: 60px 40px;
+    max-width: 1100px;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /*left images right text*/
+    column-gap: 40px;
+    row-gap: 24px;
+    align-items: stretch;
+}
+
+#aboutStyle {
+    grid-column: 2;
+    background-color: #f6f4fd;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    text-align: left;
+}
+
+#aboutStyle h6{
+    font-family: 'Roboto';
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-top: -20px;
+    color: #594f80;
+    font-size: 12px;
+}
+
+#aboutStyle h3{
+    font-family: 'Sen';
+    font-size: 30px; 
+    color: #101C30;
+}
+
+#aboutStyle p{
+    color:#A7AEBE;
+    font-family: 'Sen';
+    font-size: 14px;
+}
+
+#about h1, #about p{
     position: relative;
-    margin-top: -200px;
-    padding-top: 40px;
-    background-color: white; 
+    z-index:1;
+    grid-column: 2;
+    text-align: left;
+}
+
+#about h1{
+    grid-column: 1/3;
+    text-align:center;
+    margin-bottom: 8px; 
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -30px;
+    font-size: 50px;
+    color: #101C30;
+    text-decoration: #ff692a underline;
+}
+
+#aboutImgs {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:12px;
+    align-items: stretch;
+}
+
+#aboutImgs img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+#features{
+    margin: 60px auto 0;
+    padding: 80px 20px;
+    max-width: 1300px;
+    margin-left: -40px;
+    margin-right: -40px;
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /*for three equal cards*/
+    column-gap: 24px;
+    row-gap: 24px;
+    align-content: center;
+    align-items: stretch;
+    background-color: #f6f4fd;
+    border-radius: 10px;
+}
+
+#features h1 {
+    grid-column: 1/4;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: -17px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 50px;
+    color: #101C30;
+    text-decoration: #ff692a underline;
+}
+
+.feature {
+    background-color: #101C30;
+    border-radius:24px; 
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    padding: 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #f6f4fd;
+    font-family: 'Sen';
+    font-size: 14px;
+}
+
+.feature img {
+    width: 40px;
+    height: auto;
+    margin: auto;
+    padding-bottom: 20px;
 }
