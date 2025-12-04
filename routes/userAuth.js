@@ -4,6 +4,33 @@ import usersData from '../data/users.js';
 
 const router = Router();
 
+//sign up portion 
+router.get('/signup', (req, res) => {
+    if (req.session.user) {
+        //this is if they are already logged in
+        return res.redirect('/dashboard'); 
+    }
+
+    return res.render('signup', {title: 'Create Account', layout: 'login'});
+});
+
+router.post('/signup', async (req, res) => {
+    const {
+        firstName,
+        lastName,
+        role,
+        city,
+        state,
+        phone,
+        skills,
+        email,
+        password,
+        confirmPassword
+    } = req.body; 
+
+    
+})
+
 //if the user is already logged in, send them to the dashboard
 //if not, direct them to login page
 router.get('/login', (req, res) => {
