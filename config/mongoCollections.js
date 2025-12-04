@@ -20,4 +20,5 @@ export const jobRequests = getCollectionFn('jobRequests');
 export const workOrders = getCollectionFn('workOrders');
 export const invoices = getCollectionFn('invoices');
 export const charges = getCollectionFn('charges');
+export const clients = getCollectionFn('clients');
 export const contactMessages = getCollectionFn('contactMessages');

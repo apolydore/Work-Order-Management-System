@@ -12,7 +12,7 @@ router.get('/login', (req, res) => {
     }
 
     //uses the main handlebars, the title here is to be used in the title tag in main
-    return res.render('login', {title: 'Log In'});
+    return res.render('login', {title: 'Log In', layout:'loginLayout'});
 });
 
 //if user passes checks and logs in, redirect them to dashboard 
@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
         return res.redirect('/dashboard'); //this will use the dashboard handlebars layout
     } catch (e){
         //if anything is wrong with login input, re-render login page with an error
-        return res.status(400).render('login', {title: 'Log In', error: e});
+        return res.status(400).render('login', {title: 'Log In', layout: 'loginLayout',error: e});
     }
 });
 

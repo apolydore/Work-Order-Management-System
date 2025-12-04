@@ -293,10 +293,9 @@ header nav #buttonContainer {
 
 #features{
     margin: 60px auto 0;
-    padding: 80px 20px;
-    max-width: 1300px;
-    margin-left: -40px;
-    margin-right: -40px;
+    padding: 80px 40px;
+    width: 100%;
+    max-width: none;
     display: grid; 
     grid-template-columns: repeat(3, 1fr); /*for three equal cards*/
     column-gap: 24px;
