@@ -274,6 +274,7 @@ header nav #buttonContainer {
     font-size: 50px;
     color: #101C30;
     text-decoration: #ff692a underline;
+    padding-bottom: 20px;
 }
 
 #aboutImgs {
@@ -315,6 +316,7 @@ header nav #buttonContainer {
     font-size: 50px;
     color: #101C30;
     text-decoration: #ff692a underline;
+    padding-bottom: 20px;
 }
 
 .feature {
@@ -336,4 +338,113 @@ header nav #buttonContainer {
     height: auto;
     margin: auto;
     padding-bottom: 20px;
+}
+
+#contactUs {
+    padding-top: 40px;
+}
+
+#contactUs h1{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 50px;
+    color: #101C30;
+    text-decoration: #ff692a underline;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#contactUs form{
+    padding: 20px;
+    max-width: 650px; 
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    color:#90A1D2;
+    font-family: 'Sen';
+    border-radius: 16px;
+    box-shadow: 0 0 2px 4px rgba(0,0,0,0.03);
+}
+
+#contactUs label{
+    display: flex;
+    /*label on top with field on bottom*/
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#contactUs input,
+#contactUs select,
+#contactUs textarea{
+    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1px solid #d4d6e3;
+    background-color: #f7f8fc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    outline:none;
+}
+
+#contactUs input:focus,
+#contactUs select:focus,
+#contactUs textarea:focus{
+    border-color: #ff692a;
+}
+
+#contactUs textarea{
+    min-height: 140px;
+    resize: vertical; /*only allow for vertical resizing*/
+}
+
+#contactUs button[type="submit"]{
+    align-self:flex-end;
+    margin-top: 4px;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 500px;
+    background-color: #141c30;
+    color: #8b92a3;
+    font-family: 'Sen';
+    font-size:14px;
+    font-weight: 600;
+    cursor: pointer; 
+    box-shadow: 0 1px 1px rgba(0,0,0,0.18);
+}
+
+#contactUs button[type="submit"]:hover{
+    background-color: #0f1422;
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+footer{
+    margin: 40px auto 0;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 32px;
+    background-color: #0f1422;
+    color: #d4d6e3;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.22);
+    font-family: 'Sen';
+}
+
+footer > p{
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Roboto';
+    letter-spacing: 3px;
+}
+
+.footer-contact{
+    text-align: right;
+    font-size: 14px;
+}
+
+.footer-contact p{
+    margin: 0;
 }

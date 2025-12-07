@@ -1,0 +1,43 @@
+<section id="createAccount">
+    <h6>WRKLY</h6>
+    <h1>Create Account</h1>
+
+    {{#if error}}
+        <p class="error">{{error}}</p>
+    {{/if}}
+
+    <form action="/signup" method="POST">
+
+        <!--to see the role in the database-->
+        <input type="hidden" name="role" value="contractor">
+
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" value="{{form.firstName}}" required>
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" value="{{form.lastName}}" required>
+
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" value="{{form.city}}" required>
+
+        <label for="state">State</label>
+        <input type="text" id="state" name="state" value="{{form.state}}" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="phone" value="{{form.phone}}" required>
+
+        <label for="skills">Skills (separate by comman e.g. plumbing, electrical)</label>
+        <input type="text" id="skills" name="skills" value="{{form.skills}}" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{form.email}}" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required> 
+
+        <button type="submit">Create Account</button>
+    </form>
+</section>
