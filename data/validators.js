@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 const checkString = (val, name) => {
   if (typeof val !== "string") throw `${name} must be a string`;
-  const t = val.trim();
+  const trimmed = val.trim();
   if (!trimmed) throw `${name} cannot be empty`;
   return trimmed;
 };
@@ -21,6 +21,7 @@ const checkState = (val) => {
 
 const checkZip = (val) => {
   if (typeof val === "string") {
+    const trimmed = checkString(val, "zipCode");
     if (!/^\d{5}$/.test(trimmed)) throw "zipCode must be 5 digits";
     return Number(trimmed);
   }
@@ -37,9 +38,9 @@ const checkPhone = (val) => {
 
 const checkEmail = (val) => {
   const trimmed = checkString(val, "email");
-  const re = /^\[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!re.test(trimmed)) throw "invalid email";
-  return trimmed;
+  return trimmed.toLowerCase();
 };
 
 // job request priority
@@ -56,7 +57,7 @@ const statusJR = (val) => {
   const trimmed = checkString(val, "status").toLowerCase();
   const allowed = ["pending", "approved", "rejected", "cancelled"];
   if (!allowed.includes(trimmed))
-    throw ("status must be one of: ${allowed.join(", ")}");
+    throw `status must be one of: ${allowed.join(", ")}`;
   return trimmed;
 };
 
@@ -73,7 +74,7 @@ const statusWO = (val) => {
     "cancelled",
     "not started",
   ];
-  if (!allowed.incudes(norm))
+  if (!allowed.includes(norm))
     throw `status must be one of: ${allowed.join(", ")}`;
   return norm;
 };
@@ -86,7 +87,7 @@ const money = (val, name = "amount") => {
 
 // invoice quantity
 const positiveInteger = (val, name = "value") => {
-  if (typeof val !== "number" || !Number.isInteger(val) | (val <= 0))
+  if (typeof val !== "number" || !Number.isInteger(val) || val <= 0)
     throw `${name} must be a positive integer`;
   return val;
 };
