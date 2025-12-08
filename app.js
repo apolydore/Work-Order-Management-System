@@ -4,6 +4,7 @@ import exphbs from 'express-handlebars';
 const app = express();
 import configRoutes from './routes/index.js';
 import notificationsRouter from './routes/notifications.js';
+import statisticsRouter from './routes/statistics.js';
 
 app.use(express.json());
 
@@ -23,6 +24,9 @@ app.use(express.static('public'));
 
 // for notifications and alerts
 app.use('/api/notifications', notificationsRouter);
+
+// for statistics summary
+app.use('/api/statistics', statisticsRouter);
 
 app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
