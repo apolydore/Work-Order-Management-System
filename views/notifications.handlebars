@@ -1,0 +1,65 @@
+<section id="notificationsPage">
+    <h1>Notifications & Alerts</h1>
+
+    <!-- Emergency Alerts -->
+    <div class="notificationsSection">
+        <h2>Emergency Alerts</h2>
+        {{#if alerts}}
+            <div class="alertsContainer">
+                {{#each alerts}}
+                    <div class="alertCard emergency">
+                        <div class="alertHeader">
+                            <span class="alertBadge">EMERGENCY</span>
+                            <span class="alertDate">{{this.createdAt}}</span>
+                        </div>
+                        <div class="alertBody">
+                            <h3>{{this.name}}</h3>
+                            <p class="alertMessage">{{this.message}}</p>
+                            <div class="alertContact">
+                                <span>Email: {{this.email}}</span>
+                                <span>Category: {{this.category}}</span>
+                            </div>
+                        </div>
+                        <div class="alertActions">
+                            <button class="btnPrimary">Contact</button>
+                            <button class="btnSecondary">Mark as Resolved</button>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <p class="noData">There are no emergency alerts at this time.</p>
+        {{/if}}
+    </div>
+
+    <!-- Overdue Work Orders -->
+    <div class="notificationsSection">
+        <h2>Overdue Work Orders</h2>
+        {{#if overdueJobs}}
+            <div class="overdueContainer">
+                {{#each overdueJobs}}
+                    <div class="alertCard overdue">
+                        <div class="alertHeader">
+                            <span class="alertBadge overdue">OVERDUE</span>
+                            <span class="workOrderId">{{this.workOrderId}}</span>
+                        </div>
+                        <div class="alertBody">
+                            <h3>{{this.companyName}}</h3>
+                            <p class="alertMessage">{{this.description}}</p>
+                            <div class="alertContact">
+                                <span>Status: {{this.status}}</span>
+                                <span>Due: {{this.completionDate}}</span>
+                            </div>
+                        </div>
+                        <div class="alertActions">
+                            <button class="btnPrimary">View More</button>
+                            <button class="btnSecondary">Update Status</button>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <p class="noData">There are no overdue work orders. Great job!</p>
+        {{/if}}
+    </div>
+</section>
