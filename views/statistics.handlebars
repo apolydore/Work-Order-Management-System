@@ -1,0 +1,84 @@
+<section id="statisticsPage">
+    <h1>Work Order Statistics</h1>
+
+    <!-- Summary -->
+    <div class="statsOverview">
+        <div class="statCard total">
+            <div class="statIcon">📊</div>
+            <div class="statContent">
+                <span class="statNumber">{{statistics.total}}</span>
+                <span class="statLabel">Total Work Orders</span>
+            </div>
+        </div>
+
+        <div class="statCard completed">
+            <div class="statIcon">✓</div>
+            <div class="statContent">
+                <span class="statNumber">{{statistics.completed}}</span>
+                <span class="statLabel">Completed</span>
+            </div>
+        </div>
+
+        <div class="statCard inProgress">
+            <div class="statIcon">⟳</div>
+            <div class="statContent">
+                <span class="statNumber">{{statistics.inProgress}}</span>
+                <span class="statLabel">In Progress</span>
+            </div>
+        </div>
+
+        <div class="statCard notStarted">
+            <div class="statIcon">○</div>
+            <div class="statContent">
+                <span class="statNumber">{{statistics.notStarted}}</span>
+                <span class="statLabel">Not Started</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breakdown -->
+    <div class="statsDetails">
+        <h2>Status Breakdown</h2>
+        
+        <div class="statsTable">
+            <div class="tableHeader">
+                <span>Status</span>
+                <span>Count</span>
+                <span>Percentage</span>
+            </div>
+
+            <div class="tableRow completed">
+                <span class="statusLabel">Completed</span>
+                <span class="statusCount">{{statistics.completed}}</span>
+                <span class="statusPercentage">{{completedPercentage}}%</span>
+            </div>
+
+            <div class="tableRow inProgress">
+                <span class="statusLabel">In Progress</span>
+                <span class="statusCount">{{statistics.inProgress}}</span>
+                <span class="statusPercentage">{{inProgressPercentage}}%</span>
+            </div>
+
+            <div class="tableRow notStarted">
+                <span class="statusLabel">Not Started</span>
+                <span class="statusCount">{{statistics.notStarted}}</span>
+                <span class="statusPercentage">{{notStartedPercentage}}%</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progressVisualization">
+            <h3>Overall Progress</h3>
+            <div class="progressBar">
+                <div class="progressSegment completed" style="width: {{completedPercentage}}%"></div>
+                <div class="progressSegment inProgress" style="width: {{inProgressPercentage}}%"></div>
+                <div class="progressSegment notStarted" style="width: {{notStartedPercentage}}%"></div>
+            </div>
+            <div class="progressLabels">
+                <span class="completed">Completed: {{completedPercentage}}%</span>
+                <span class="inProgress">In Progress: {{inProgressPercentage}}%</span>
+                <span class="notStarted">Not Started: {{notStartedPercentage}}%</span>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}} | WRKLY</title>
+        <link rel="stylesheet" href="/css/dashboard.css">
+    </head>
+
+    <body>
+        <header class="dashboardHeader">
+            <div class="headerLeft">
+                <h2>WRKLY</h2>
+            </div>
+            <nav class="mainNav">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/notifications">Notifications</a>
+                <a href="/statistics">Statistics</a>
+                <a href="/work-orders">Work Orders</a>
+                <a href="/daily-schedule">Daily Schedule</a>
+            </nav>
+            <div class="headerRight">
+                <span class="userName">{{user.firstName}} {{user.lastName}}</span>
+                <a href="/logout" class="logoutBtn">Logout</a>
+            </div>
+        </header>
+
+        <main class="dashboardMain">
+            {{{body}}}
+        </main>
+
+        <footer class="dashboardFooter">
+            <p>&copy; WRKLY.</p>
+        </footer>
+    </body>
+</html>

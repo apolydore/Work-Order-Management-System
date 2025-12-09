@@ -1,0 +1,730 @@
+/* Base Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+  color: #1e293b;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Dashboard Header */
+.dashboardHeader {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerLeft h2 {
+  color: #1e293b;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.mainNav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.mainNav a {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.mainNav a:hover {
+  background-color: #e0e7ff;
+  color: #6366f1;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.userName {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.logoutBtn {
+  background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+  color: white;
+  padding: 0.625rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 126, 95, 0.3);
+}
+
+.logoutBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 126, 95, 0.4);
+}
+
+/* Main Content */
+.dashboardMain {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+#dashboardOverview h1 {
+  font-size: 2.25rem;
+  color: #1e293b;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+/* Dashboard Grid */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Styling for the different cards */
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+  font-size: 1.35rem;
+  color: #1e293b;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e0e7ff;
+  font-weight: 600;
+}
+
+/* Statistics */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.statItem {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.statItem:hover {
+  transform: scale(1.05);
+}
+
+.statNumber {
+  display: block;
+  font-size: 2.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Alerts Card */
+.alertsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.alertItem {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
+  border-left: 4px solid #ff7e5f;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.alertItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(255, 126, 95, 0.15);
+}
+
+.alertIcon {
+  font-size: 1.5rem;
+}
+
+.alertContent {
+  flex: 1;
+}
+
+.alertContent strong {
+  display: block;
+  color: #991b1b;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.alertContent p {
+  color: #7f1d1d;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.alertContent small {
+  color: #991b1b;
+  font-size: 0.8rem;
+}
+
+/* Overdue */
+.overdueList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.overdueItem {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #fffbeb 0%, #fff 100%);
+  border-left: 4px solid #feb47b;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.overdueItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(254, 180, 123, 0.15);
+}
+
+.overdueItem strong {
+  display: block;
+  color: #92400e;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.overdueItem p {
+  color: #78350f;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.overdueItem small {
+  color: #92400e;
+  font-size: 0.8rem;
+}
+
+/* No Data Message */
+.noData {
+  color: #64748b;
+  text-align: center;
+  padding: 2.5rem;
+  font-style: italic;
+}
+
+/* Card Links - UPDATED */
+.cardLink {
+  display: inline-block;
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: #f0f4ff;
+}
+
+.cardLink:hover {
+  background: #e0e7ff;
+  transform: translateX(4px);
+}
+
+/* Disable links for placeholders b/c there is nothing there yet */
+.cardLink.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Placeholder Cards */
+.card.placeholder {
+  border: 2px dashed #cbd5e1;
+  background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+}
+
+/* Placeholder text */
+.placeholderText {
+  font-size: 1.1rem;
+  color: #64748b;
+  text-align: center;
+  padding: 2rem 1rem 0.5rem;
+  font-weight: 500;
+}
+
+/* Placeholder note */
+.placeholderNote {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-align: center;
+  font-style: italic;
+  padding-bottom: 1.5rem;
+}
+
+/* Footer */
+.dashboardFooter {
+  background-color: #fff;
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 3rem;
+}
+
+/* NOTIFICATIONS PAGE */
+#notificationsPage h1 {
+  font-size: 2.25rem;
+  color: #1e293b;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.notificationsSection {
+  margin-bottom: 3rem;
+}
+
+.notificationsSection h2 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e0e7ff;
+  font-weight: 600;
+}
+
+.alertsContainer,
+.overdueContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.alertCard {
+  background: white;
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.alertCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.alertCard.emergency {
+  border-left: 5px solid #ff7e5f;
+}
+
+.alertCard.overdue {
+  border-left: 5px solid #feb47b;
+}
+
+.alertHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.alertBadge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border-radius: 25px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.alertBadge.emergency {
+  background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+  color: white;
+}
+
+.alertBadge.overdue {
+  background: linear-gradient(135deg, #feb47b 0%, #ffd89b 100%);
+  color: #78350f;
+}
+
+.alertDate,
+.workOrderId {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.alertBody {
+  margin-bottom: 1.5rem;
+}
+
+.alertBody h3 {
+  font-size: 1.15rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.alertMessage {
+  color: #475569;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.alertContact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.alertActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btnPrimary,
+.btnSecondary {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.btnSecondary {
+  background-color: #f0f4ff;
+  color: #6366f1;
+}
+
+.btnSecondary:hover {
+  background-color: #e0e7ff;
+}
+
+/* STATISTICS PAGE */
+#statisticsPage h1 {
+  font-size: 2.25rem;
+  color: #1e293b;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.statCard {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.statCard.total {
+  border-left: 5px solid #6366f1;
+  background: linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+}
+
+.statCard.completed {
+  border-left: 5px solid #10b981;
+  background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+}
+
+.statCard.inProgress {
+  border-left: 5px solid #feb47b;
+  background: linear-gradient(135deg, #fff 0%, #fffbeb 100%);
+}
+
+.statCard.notStarted {
+  border-left: 5px solid #94a3b8;
+  background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+}
+
+.statIcon {
+  font-size: 2.5rem;
+  opacity: 0.8;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.statCard .statNumber {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.statCard .statLabel {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 0.35rem;
+}
+
+.statsDetails {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.statsDetails h2,
+.statsDetails h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 1.75rem;
+  font-weight: 600;
+}
+
+.statsDetails h3 {
+  font-size: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.statsTable {
+  margin-bottom: 2.5rem;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 1.25rem;
+  gap: 1rem;
+}
+
+.tableHeader {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+  border-radius: 12px;
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #fafafa;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow.completed {
+  border-left: 4px solid #10b981;
+}
+
+.tableRow.inProgress {
+  border-left: 4px solid #feb47b;
+}
+
+.tableRow.notStarted {
+  border-left: 4px solid #94a3b8;
+}
+
+.statusLabel {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.statusCount {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.statusPercentage {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.progressVisualization {
+  margin-top: 2.5rem;
+}
+
+.progressBar {
+  display: flex;
+  height: 50px;
+  border-radius: 25px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.progressSegment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.progressSegment:hover {
+  filter: brightness(1.1);
+}
+
+.progressSegment.completed {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.progressSegment.inProgress {
+  background: linear-gradient(135deg, #feb47b 0%, #ff9a56 100%);
+}
+
+.progressSegment.notStarted {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.progressLabels span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 25px;
+}
+
+.progressLabels .completed {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+}
+
+.progressLabels .inProgress {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #78350f;
+}
+
+.progressLabels .notStarted {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #475569;
+}
+
+/* Responsive adjustments for better user experience*/
+/* Should account for users on various screen sizes */
+@media (max-width: 768px) {
+  .dashboardHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mainNav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .alertsContainer,
+  .overdueContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .statsOverview {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 2fr 1fr 1fr;
+    font-size: 0.875rem;
+  }
+
+  .progressLabels {
+    flex-direction: column;
+  }
+}

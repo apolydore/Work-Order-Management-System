@@ -1,0 +1,90 @@
+<section id="dashboardOverview">
+    <h1>Dashboard Overview</h1>
+
+    <div class="dashboardGrid">
+        
+        <!-- Statistics Summary -->
+        <div class="card statisticsCard">
+            <h2>Work Order Statistics</h2>
+            <div class="statsGrid">
+                <div class="statItem">
+                    <span class="statNumber">{{statistics.total}}</span>
+                    <span class="statLabel">Total Jobs</span>
+                </div>
+                <div class="statItem">
+                    <span class="statNumber">{{statistics.completed}}</span>
+                    <span class="statLabel">Completed</span>
+                </div>
+                <div class="statItem">
+                    <span class="statNumber">{{statistics.inProgress}}</span>
+                    <span class="statLabel">In Progress</span>
+                </div>
+                <div class="statItem">
+                    <span class="statNumber">{{statistics.notStarted}}</span>
+                    <span class="statLabel">Not Started</span>
+                </div>
+            </div>
+            <a href="/statistics" class="cardLink">View detailed statistics →</a>
+        </div>
+
+        <!-- Alerts -->
+        <div class="card alertsCard">
+            <h2>Emergency Alerts</h2>
+            {{#if alerts}}
+                <div class="alertsList">
+                    {{#each alerts}}
+                        <div class="alertItem">
+                            <span class="alertIcon">⚠️</span>
+                            <div class="alertContent">
+                                <strong>{{this.name}}</strong>
+                                <p>{{this.message}}</p>
+                                <small>{{this.email}}</small>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p class="noData">No emergency alerts at this time.</p>
+            {{/if}}
+            <a href="/notifications" class="cardLink">View all notifications →</a>
+        </div>
+
+        <!-- Overdue Jobs -->
+        <div class="card overdueCard">
+            <h2>Overdue Work Orders</h2>
+            {{#if overdueJobs}}
+                <div class="overdueList">
+                    {{#each overdueJobs}}
+                        <div class="overdueItem">
+                            <strong>{{this.workOrderId}}</strong>
+                            <p>{{this.description}}</p>
+                            <small>Due: {{this.completionDate}}</small>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p class="noData">There are no overdue work orders.</p>
+            {{/if}}
+            <a href="/notifications" class="cardLink">View all notifications →</a>
+        </div>
+
+        <!-- Placeholder for Work Orders Card -->
+        <!-- Edit Below -->
+        <div class="card workOrdersCard placeholder">
+            <h2>Recent Work Orders</h2>
+            <p class="placeholderText">Work Orders feature coming soon!</p>
+            <p class="placeholderNote">Coming Soon!</p>
+            <a href="/work-orders" class="cardLink disabled">View all work orders →</a>
+        </div>
+
+        <!-- Placeholder for Daily Schedule Card -->
+        <!-- Edit Below -->
+        <div class="card scheduleCard placeholder">
+            <h2>Today's Schedule</h2>
+            <p class="placeholderText">📅 Daily Schedule feature coming soon!</p>
+            <p class="placeholderNote">Coming Soon!</p>
+            <a href="/daily-schedule" class="cardLink disabled">View full schedule →</a>
+        </div>
+
+    </div>
+</section>
