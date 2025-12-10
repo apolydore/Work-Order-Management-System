@@ -1,26 +1,29 @@
 <section id="loginPage">
-    <div id="imgSection">
-        <h6>WRKLY</h6>
-        <img id="backgroundImg" src="#">
+    <div id="loginCard">
+        <div id="loginLeft">
+            <p class="brandName">WRKLY</p>
+
+            <h1 id="loginHeading">Welcome Back!</h1>
+
+            {{#if error}}
+                <p class="errorMessage">{{error}}</p>
+            {{/if}}
+
+            <form method="POST" action="/login" class="loginForm">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+
+                <button type="submit" id="loginButton">Login</button>
+                <p id="createAcct">Don't have an account? <a href='/signup'>Create one!</a></p>
+            </form>
+        </div> 
+
+        <div id="loginRight">
+            <img id="loginImg" src="/imgs/signin-building.jpg" alt="wrkly sign in image">
+        </div>
     </div>
-
-    <h1>Welcome Back</h1>
-
-<!--if there is an error in the form, show that-->
-    {{#if error}}
-        <p class="errorMessage">{{error}}</p>
-    {{/if}}
-
-    <form method="POST" action="/login" class="loginForm">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" required>
-
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" required>
-
-        <button type="submit">Login</button>
-
-        <p>Don't have an account? <a href='#'>Sign up!</a></p>
-    </form>
 
 </section>

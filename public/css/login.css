@@ -1,0 +1,269 @@
+/*resetting to make styling easier, then making it non-scrollable*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%; 
+}
+
+body{
+    background-color: #f3f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative; 
+    font-family: 'Sen';
+}
+
+.loginMain{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginPage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#loginCard{
+    background-color: #fff;
+    width: 80%;
+    max-width: 1000px;
+    min-width: 900px;
+    height: 70%;
+    border-radius: 30px;
+    display: flex;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+#loginLeft{
+    flex: 1;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.brandName {
+    font-size: 17px !important;
+    font-family: 'Roboto';
+    letter-spacing: 2px;
+    font-weight: 500; 
+    margin-bottom: 16px; 
+    position: absolute;
+    top: 24px;
+    left: 40px; 
+    margin: 0; 
+}
+
+#loginHeading{
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Sen';
+    margin-bottom: 20px;
+}
+
+.errorMessage{
+    /*change this color later*/
+    background-color: rgba(255,99,132,0.15);
+    color: #b91c1c;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 12px; 
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.loginForm label{
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.loginForm input{
+    margin-top:4px;
+    padding: 10px 12px;
+    border-radius: 50px;
+    border: 0.25px solid #b4bcd4;
+    background-color: #fff;
+    color: #8f95a7;
+    font-size: 10px; 
+    font-family: 'Roboto';
+}
+
+.loginForm input:focus{
+    border: 1px solid #ff6b00;
+    outline: none;
+}
+
+#loginButton{
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-radius: 300px;
+    border: none;
+    background-color: #ff6b00;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer; 
+}
+
+#loginLeft p{
+    margin-top: 12px;
+    font-size: 12px;
+    font-family: 'Roboto';
+}
+
+#createAcct{
+    text-align: center;
+}
+
+#loginLeft p a{
+    color: #ff6b00;
+    text-decoration: none;
+}
+
+#loginLeft p a:hover{
+    text-decoration: underline;
+}
+
+#loginRight{
+    flex: 1;
+    padding: 32px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginImg{
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+.loginHeader{
+    position: absolute;
+    top: 20px;
+    left: 24px; 
+}
+
+.loginHeader img{
+    height: 23px;
+    width: auto;
+    display: block; 
+}
+
+#createAccountPage{
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+}
+
+#signupBrand{
+    position: absolute;
+    top: 18px;
+    left: 24px;
+    margin: 0;
+    font-size: 17px;
+    font-family: 'Roboto';
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+#signupCard{
+    width: 70%;
+    max-width: 900px;
+    min-width: 900px;
+    border-radius: 30px;
+    background-image: url('/imgs/background.png');
+    background-size: auto; /*scale to fit background in the card*/
+    background-position: center;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 32px 20px 32px 90px;
+    position: relative; /*using this to position the handyman later*/
+}
+
+#signupInner{
+    width: 380px; 
+    max-width: 100%;
+    background-color: #fff;
+    border-radius: 24px;
+    padding: 32px 32px 28px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2; /*making it above the backgrund, but handyman will be overlapping*/
+}
+
+#signupHeading{
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Sen';
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+#signupForm{
+    width: 100%;
+    max-height: 340px;
+    overflow-y: auto; /*makes this into a scrollable element*/
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    color:#101C30;
+}
+
+#signupButton{
+    margin-top:18px;
+    padding: 10px 14px;
+    border-radius: 300px;
+    border: none;
+    background: #101C30;
+    color: #d4d6e3;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#signupHandyman{
+    position: absolute;
+    left: 264px;
+    bottom: 35px;
+    height: 58%;
+    transform: translateX(10px) /*shoves him into the create account form a little*/;
+    z-index: 3; /*make him on top of everything else*/
+    pointer-events: none; /*this is so it doesn't block the form*/
+}
+
+#wrench{
+    position: absolute;
+    left: 840px;
+    top: 25px;
+    z-index: 4;
+    height: 55px;
+    width:auto;
+}
