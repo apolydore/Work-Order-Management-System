@@ -23,33 +23,57 @@ const statusInvoice = (val) => {
 
 const ensureWorkOrder = async (id) => {
   const col = await workOrders();
-  const doc = await col.finOne({
+  const doc = await col.findOne({
     _id: v.checkId(id, "workOrderId"),
   });
   if (!doc) throw "work order not found";
   return doc;
 };
 
-const validateItem = (item, idx) => {
+// verifies chargeCode exists in charges dataset
+const ensureCharge = async (code, idx) => {
+  const col = await charges();
+  const doc = await col.findOne({
+    _id: v.checkString(code, `items[${idx}].chargeCode`),
+  });
+  if (!doc) throw `items[${idx}].chargeCode not found in charges dataset`;
+  return doc;
+};
+
+// validates item fields and default description and price from charge
+const validateItem = async (item, idx) => {
   if (!item || typeof item !== "object" || Array.isArray(item))
     throw `items[${idx}] must be an object`;
 
-  const validated = {
-    chargeCode: v.checkString(item.chargeCode, `items[${idx}].chargeCode`),
-    description: v.checkString(item.description, `items[${idx}.description`),
-    price: v.money(item.price),
-    quantity:
-      item.quantity !== undefined
-        ? v.positiveInteger(item.quantity, `items[${idx}].lineTotal`)
-        : 1,
+  const chargeDoc = await ensureCharge(item.chargeCode, idx);
+
+  const description =
+    item.description !== undefined
+      ? v.checkString(item.description, `items[${idx}].description`)
+      : chargeDoc.description;
+
+  const price =
+    item.price !== undefined
+      ? v.money(item.price, `items[${idx}].price`)
+      : v.money(chargeDoc.avgCharge, `items[${idx}].price`);
+
+  const quantity =
+    item.quantity !== undefined
+      ? v.positiveInteger(item.quantity, `items[${idx}].quantity`)
+      : 1;
+
+  const lineTotal = v.money(price * quantity, `items[${idx}].lineTotal`);
+
+  return {
+    chargeCode: chargeDoc._id.toString(),
+    description,
+    price,
+    quantity,
+    lineTotal,
   };
-  validated.lineTotal = v.money(
-    validated.price * validated.quantity,
-    `items[${idx}].lineTotal`,
-  );
-  return validated;
 };
 
+// compute totals from validated items
 const computeTotals = (items, taxRate) => {
   const subtotal = v.money(
     items.reduce((sum, i) => sum + i.lineTotal, 0),
@@ -74,15 +98,20 @@ exportedMethods.createInvoice = async (
   await ensureWorkOrder(workOrderId);
 
   if (!Array.isArray(datasetWorkIds)) throw "datasetWorkIds must be an array";
-  const validateItems = items.map((item, i) => validateItem(item, i));
+  const validatedIds = datasetWorkIds.map((id, i) =>
+    v.checkString(id, `datasetWorkIds[${i}]`),
+  );
+  const validatedItems = await Promise.all(
+    items.map((item, i) => validateItem(item, i)),
+  );
 
-  const totals = computeTotals(validateItems, taxRate);
+  const totals = computeTotals(validatedItems, taxRate);
 
   const newInvoice = {
     workOrderId: v.checkId(workOrderId, "workOrderId"),
     companyName: v.checkString(companyName, "companyName"),
     datasetWorkIds: validatedIds,
-    items: validateItems,
+    items: validatedItems,
     subtotal: totals.subtotal,
     taxRate: totals.taxRate,
     tax: totals.tax,
@@ -98,12 +127,12 @@ exportedMethods.createInvoice = async (
   if (!insertInfo.acknowledged || !insertInfo.insertedId)
     throw "could not create invoice";
 
-  newInvoice._id = insertInfo.insertId;
+  newInvoice._id = insertInfo.insertedId;
   return normalize(newInvoice);
 };
 
 exportedMethods.getInvoiceById = async (id) => {
-  const objId = v.checkDate(id);
+  const objId = v.checkId(id);
   const col = await invoices();
   const doc = await col.findOne({ _id: objId });
   if (!doc) throw "invoice not found";
@@ -123,6 +152,8 @@ exportedMethods.getAllInvoices = async (filters = {}) => {
   return docs.map(normalize);
 };
 
+// update invoice
+// when items change, revalidate items and compute totals
 exportedMethods.updateInvoice = async (id, updates) => {
   if (!updates || typeof updates !== "object")
     throw "updates must be an object";
@@ -153,7 +184,9 @@ exportedMethods.updateInvoice = async (id, updates) => {
 
   if (updates.items !== undefined) {
     if (!Array.isArray(updates.items)) throw "items must be an array";
-    newItems = updates.items.map((item, i) => validateItem(item, i));
+    newItems = await Promise.all(
+      updates.items.map((item, i) => validateItem(item, i)),
+    );
     toSet.items = newItems;
   }
 
