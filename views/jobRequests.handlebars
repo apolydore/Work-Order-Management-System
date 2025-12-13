@@ -1,0 +1,66 @@
+<section id="createPage">
+    <h1 id="jobRequestTitle">Create Job Request</h1>
+
+    {{#if error}}
+        <p id="jobRequestError" class="errorMessage">{{error}}</p>
+    {{else}}
+        <p id="jobRequestError" class="errorMessage"></p>
+    {{/if}}
+
+    <!--the errors will go here-->
+    <div id="errorDiv"></div>
+
+    <form id="reqForm" method="POST" action="/job-requests">
+        <div id="companyNameGroup">
+            <label for="companyName">Company Name</label>
+            <select id="companyName" name="companyName">
+                <option value="">Select a company</option>
+                {{#each companies}}
+                    <option value="{{this.companyName}}">{{this.companyName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div id="categoryGroup">
+            <label for="category">Category</label>
+            <input id="category" name="category" type="text" value="{{form.category}}" placeholder="plumbing, electrical, etc.">
+        </div>
+
+        <div id="priorityGroup">
+            <label for="priority">Priority (low, medium, high)</label>
+            <input id="priority" name="priority" type="text" value="{{form.priority}}" placeholder="low">
+        </div>
+
+        <div id="descriptionGroup">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe the issue">{{form.description}}</textarea>
+        </div>
+
+        <div id="addressGroup">
+            <label for="address">Address</label>
+            <input id="address" name="address" type="text" value="{{form.address}}" placeholder="123 Main Street">
+        </div>
+
+        <div id="cityGroup">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" value="{{form.city}}" placeholder="Hoboken">
+        </div>
+
+        <div id="stateGroup">
+            <label for="state">State (2 letters)</label>
+            <input id="state" name="state" type="text" value="{{form.state}}" placeholder="NJ" maxlength="2">
+        </div>
+
+        <div id="zipGroup">
+            <label for="zipCode">Zip Code (5 digits)</label>
+            <input id="zipCode" name="zipCode" type="text" value="{{form.zipCode}}" placeholder="07030" maxlength="5">
+        </div>
+
+        <div id="photoGroup">
+            <label for="attachmentUrl">Attachment URL (optional)</label>
+            <input id="attachmentUrl" name="attachmentUrl" type="text" value="{{form.attachmentUrl}}" placeholder="https://...">
+        </div>
+
+        <button id="submitBtn" type="submit">Submit Job Request</button>
+    </form>
+</section>

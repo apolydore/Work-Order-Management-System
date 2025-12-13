@@ -11,7 +11,10 @@ const ensureActiveCompany = async (companyName) => {
   const doc = await col.findOne({
     companyName: v.checkString(companyName, "companyName"),
   });
-  if (!doc.isActive) throw "company is inactive";
+
+  //changing this bc doc might be null if company doesn't exist
+  if (!doc) throw 'company not found';
+  if (doc.isActive !== true) throw 'company is inactive';
   return doc;
 };
 
@@ -25,6 +28,7 @@ exportedMethods.createJobRequest = async (
   city,
   state,
   zipCode,
+  attachmentUrl = null,
   requestedDate = new Date(),
   status = "pending",
 ) => {
@@ -43,6 +47,18 @@ exportedMethods.createJobRequest = async (
     requestedDate: v.checkDate(requestedDate),
     createdAt: new Date(),
   };
+
+  if (attachmentUrl && typeof attachmentUrl === 'string' && attachmentUrl.trim()){
+    const trimmedUrl = v.checkString(attachmentUrl, 'attachmentUrl');
+
+    //simple validation for url
+    if (!/^https?:\/\/.+/i.test(trimmedUrl)){
+      throw 'attachmentUrl must start with http:// or https://'
+    }
+
+    newReq.attachmentUrl = trimmedUrl; 
+  }
+
   const st = v.statusJR(status);
   if (st !== undefined) newReq.status = st;
 
@@ -105,6 +121,21 @@ exportedMethods.updateJobRequest = async (id, updates) => {
     toSet.state = v.checkState(updates.state, "state");
   if (updates.zipCode !== undefined)
     toSet.zipCode = v.checkZip(updates.zipCode, "zipCode");
+
+  if (updates.attachmentUrl !== undefined){
+    //allow to clear it by sending an empty string or null
+    if (updates.attachmentUrl === null || updates.attachmentUrl===''){
+      toSet.attachmentUrl = null;
+    } else {
+      const trimmedUrl = v.checkString(updates.attachmentUrl, 'attachmentUrl');
+
+      if (!/^https?:\/\/.+/i.test(trimmedUrl)){
+        throw 'attachmentUrl must start with http:// or https://';
+      }
+      toSet.attachmentUrl = trimmedUrl;
+    }
+  }
+
   if (updates.status !== undefined) toSet.status = v.statusJR(updates.status);
   if (updates.requestedDate !== undefined)
     toSet.requestedDate = v.checkDate(updates.requestedDate);
@@ -117,7 +148,7 @@ exportedMethods.updateJobRequest = async (id, updates) => {
     { $set: toSet },
     { returnDocument: "after" },
   );
-  if (!updateInfo.acknowledged) throw "job request not found";
+  if (!updateInfo.value) throw "job request not found";
   return normalize(updateInfo.value);
 };
 

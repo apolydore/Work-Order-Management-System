@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (jobRequestBtn) {
         jobRequestBtn.addEventListener('click', () => {
-            window.location.href='#'; 
+            window.location.href='/job-requests/new'; 
         }); 
     }
 }); 
