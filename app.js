@@ -16,6 +16,8 @@ import {
 } from "./middleware.js";
 
 app.use(express.json());
+//this is a middleware that parses the form and puts it into the request body
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
@@ -34,14 +36,11 @@ app.use("/signup", isAuthenticated);
 app.use("/dashboard", authRequired);
 app.use("/notifications", authRequired);
 app.use("/statistics", authRequired);
-app.use("/job-requests", authRequired, jobRequestsRouter);
+app.use("/job-requests", jobRequestsRouter);
 app.use("/work-orders", authRequired, workOrdersRouter);
 // middleware role based
 app.use("/admin", adminOnly);
 app.use("/contractor", contractorOnly);
-
-//this is a middleware that parses the form and puts it into the request body
-app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 

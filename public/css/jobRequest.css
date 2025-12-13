@@ -1,0 +1,163 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0; 
+    background-color:#fff;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header nav {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0f1422; 
+}
+
+header nav img {
+    height: 23px; 
+}
+
+.jobReqBody{
+    /*vh meaning viewport height so it adjusts if the screen changes
+    min height is going to be as tall as the browser's window*/
+    min-height: 100vh;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    font-family: 'Sen';
+}
+
+.jobReqMain{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 16px;
+}
+
+#createPage{
+    width: 100%;
+    max-width: 650px;
+    background-color: #fff;
+    border-radius: 18px;
+    padding: 28px 32px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+#jobRequestTitle{
+    font-size: 28px;
+    font-weight: 600;
+    font-family: 'Sen';
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+#errorDiv{
+    width: 100%;
+    box-sizing: border-box;
+    display: none;
+    background-color: rgba(255,99,132,0.15);
+    color: #b91c1c;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 12px; 
+}
+
+#errorDiv ul{
+    margin: 0;
+    padding-left: 18px;
+}
+
+#reqForm{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/*this is for each group div*/
+#reqForm > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/*this is for the inputs*/
+#reqForm input, 
+#reqForm textarea,
+#reqForm select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #b8bbcc;
+    font-size: 14px; 
+}
+
+#reqForm input:focus, 
+#reqForm textarea:focus,
+#reqForm select:focus {
+    border: 1px solid #ff6b00;
+    outline: none;
+}
+
+#reqForm textarea{
+    min-height: 90px;
+    resize: vertical;
+}
+
+/*keep the footer the full width*/
+.jobReqFooter{
+    width: 100%;
+}
+
+#submitBtn{
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-radius: 300px;
+    border: none;
+    background-color: #ff6b00;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+footer{
+    margin: 40px auto 0;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 32px;
+    background-color: #0f1422;
+    color: #d4d6e3;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.22);
+    font-family: 'Sen';
+}
+
+footer > p{
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Roboto';
+    letter-spacing: 3px;
+}
+
+.footer-contact{
+    text-align: right;
+    font-size: 14px;
+}
+
+.footer-contact p{
+    margin: 0;
+}

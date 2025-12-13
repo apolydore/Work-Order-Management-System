@@ -127,6 +127,16 @@ exportedMethods.getAllCompanies = async () => {
   return col.find({}).toArray();
 };
 
+exportedMethods.getActiveCompaniesForDropdown = async () => {
+  const col = await companies();
+  const doc = await col.find({isActive:true}).project({companyName: 1}).toArray();
+
+  return doc.map((c) => ({
+    _id: c._id.toString(),
+    companyName: c.companyName
+  }));
+};
+
 export default exportedMethods;
 
 
