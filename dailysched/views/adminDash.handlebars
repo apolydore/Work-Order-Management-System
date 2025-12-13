@@ -1,0 +1,310 @@
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <div class="user-info">
+            <span>Welcome, {{user.firstName}} {{user.lastName}}</span>
+            <a href="/admin/schedule" class="schedule-btn">Daily Schedule</a>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <h2>Work Order Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Jobs</h3>
+                <p class="stat-number">{{stats.totalJobs}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <p class="stat-number">{{stats.completed}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>In Progress</h3>
+                <p class="stat-number">{{stats.inProgress}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Not Started</h3>
+                <p class="stat-number">{{stats.notStarted}}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Requests</h3>
+                <p class="stat-number">{{stats.pendingRequests}}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-orders-section">
+        <h2>Active Work Orders</h2>
+        {{#if workOrders.length}}
+        <table class="work-orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Company</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Contractor</th>
+                    <th>Start Date</th>
+                    <th>Est. End Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each workOrders}}
+                <tr>
+                    <td>{{this._id}}</td>
+                    <td>{{this.companyName}}</td>
+                    <td>{{this.description}}</td>
+                    <td>
+                        <span class="status-badge status-{{this.status}}">
+                            {{this.status}}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="priority-badge priority-{{this.priority}}">
+                            {{this.priority}}
+                        </span>
+                    </td>
+                    <td>{{this.contractorName}}</td>
+                    <td>{{this.startDate}}</td>
+                    <td>{{this.estimatedEndDate}}</td>
+                    <td>
+                        <a href="/admin/workorder/{{this._id}}" class="btn-view">View</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <p class="no-data">No work orders found.</p>
+        {{/if}}
+    </section>
+
+    <section class="job-requests-section">
+        <h2>Pending Job Requests</h2>
+        {{#if jobRequests.length}}
+        <table class="job-requests-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Company</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each jobRequests}}
+                <tr>
+                    <td>{{this._id}}</td>
+                    <td>{{this.companyName}}</td>
+                    <td>{{this.category}}</td>
+                    <td>
+                        <span class="priority-badge priority-{{this.priority}}">
+                            {{this.priority}}
+                        </span>
+                    </td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.city}}, {{this.state}}</td>
+                    <td>
+                        <button class="btn-convert">Convert to WO</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <p class="no-data">No pending job requests.</p>
+        {{/if}}
+    </section>
+</div>
+
+<style>
+    .dashboard-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+
+    .dashboard-header h1 {
+        font-size: 28px;
+        color: #333;
+    }
+
+    .user-info {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .schedule-btn {
+        padding: 8px 16px;
+        background-color: #2196f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .schedule-btn:hover {
+        background-color: #1976d2;
+    }
+
+    .logout-btn {
+        padding: 8px 16px;
+        background-color: #f44336;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .stats-section {
+        margin-bottom: 40px;
+    }
+
+    .stats-section h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .stat-card {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .stat-card h3 {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .work-orders-section,
+    .job-requests-section {
+        margin-bottom: 40px;
+    }
+
+    .work-orders-section h2,
+    .job-requests-section h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    thead {
+        background-color: #f5f5f5;
+    }
+
+    th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 2px solid #ddd;
+    }
+
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .status-badge,
+    .priority-badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .status-completed {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .status-in.progress {
+        background-color: #ff9800;
+        color: white;
+    }
+
+    .status-not.started {
+        background-color: #9e9e9e;
+        color: white;
+    }
+
+    .priority-high {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .priority-medium {
+        background-color: #ff9800;
+        color: white;
+    }
+
+    .priority-low {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .btn-view,
+    .btn-convert {
+        padding: 6px 12px;
+        background-color: #2196f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .btn-view:hover,
+    .btn-convert:hover {
+        background-color: #1976d2;
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+        font-style: italic;
+    }
+</style>
