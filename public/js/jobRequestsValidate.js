@@ -1,5 +1,8 @@
 const form = document.getElementById("reqForm");
 const errorsDiv = document.getElementById("errorDiv");
+const jobRequestError = document.getElementById("jobRequestError");
+const thankYou = document.getElementById("jobRequestThankYou");
+const jobRequestTitle = document.getElementById("jobRequestTitle");
 
 const showErrors = (errors) => {
     if (!errorsDiv) return;
@@ -75,7 +78,7 @@ const checkAttachmentUrl = (val) => {
 };
 
 if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         const errors = [];
 
         const companyName = document.getElementById("companyName").value;
@@ -129,8 +132,56 @@ if (form) {
         if (errors.length > 0) {
             e.preventDefault();
             showErrors(errors);
-        } else {
-            showErrors([]);
+            return; 
+        }
+
+        e.preventDefault();
+        showErrors([]);
+
+        try{
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+
+            //mentioned in the contactus ajax form submission, but I had to look this up because I had no idea what was going on
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Accept": "application/json"
+                },
+                body: params.toString()
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success){
+                if (jobRequestError){
+                    jobRequestError.textContent = data.error || 'something went wrong.';
+                    jobRequestError.style.display = "block";
+                }
+                return;
+            }
+
+            //this is if the form succeeds in going through, show a thank you
+            form.style.display = "none";
+
+            if (jobRequestError){
+                jobRequestError.style.display = "none";
+            }
+
+            //hides the header bc it looks weird with the thank you
+            if (jobRequestTitle){
+                jobRequestTitle.style.display = "none";
+            }
+
+            if (thankYou){
+                thankYou.style.display = "block";
+            }
+        } catch (e){
+            if (jobRequestError){
+                jobRequestError.textContent = "error, please try again!";
+                jobRequestError.style.display = "block"; 
+            }
         }
     }); 
 }

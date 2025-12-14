@@ -100,7 +100,7 @@ router.post("/", async(req, res) => {
       attachmentUrl
     );
 
-    return res.redirect('/thank-you.html');
+    return res.status(200).json({success: true}); 
   } catch (e) {
     return res.status(400).render("jobRequests", {
       title: "Create Job Request",

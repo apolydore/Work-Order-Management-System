@@ -3,6 +3,7 @@ import session from "express-session";
 import exphbs from "express-handlebars";
 const app = express();
 import configRoutes from "./routes/index.js";
+import contactRouter from "./routes/contact.js";
 import notificationsRouter from "./routes/notifications.js";
 import statisticsRouter from "./routes/statistics.js";
 import pagesRouter from "./routes/pages.js";
@@ -40,11 +41,15 @@ app.use("/notifications", authRequired);
 app.use("/statistics", authRequired);
 app.use("/job-requests", jobRequestsRouter);
 app.use("/work-orders", authRequired, workOrdersRouter);
+
+app.use("/contact", contactRouter); 
+
 // middleware role based
 app.use("/", adminDashboardRoutes);
 app.use("/", dailyScheduleRoutes);
 app.use("/admin", adminOnly);
 app.use("/contractor", contractorOnly);
+
 
 app.use(express.static("public"));
 
