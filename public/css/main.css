@@ -448,3 +448,28 @@ footer > p{
 .footer-contact p{
     margin: 0;
 }
+
+.thankYouCard{
+    background-color: #fff;
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.thankYouCard h2{
+    margin-top: -10px;
+    font-family: 'Bebas Neue';
+    font-size: 48px;
+    color:#101C30;
+    margin-bottom: 10px;
+}
+
+.thankYouCard p{
+    font-family: 'Sen';
+    font-size: 16px;
+    color: #8f95a7;
+    margin: 0; 
+}
