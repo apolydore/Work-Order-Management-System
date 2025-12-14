@@ -91,7 +91,8 @@
         <div class="container">
             <div id="contactUs">
                 <h1>Contact Us</h1>
-                <form action="/contact" method="POST">
+                <form id="contactForm" action="/contact" method="POST">
+                    <p class="errorMessage" id="contactError" style="display:none;"></p>
                     <label for="name">
                         Name 
                         <input type="text" id="name" name="name" placeholder="John Doe" required>
@@ -118,6 +119,13 @@
 
                     <button type="submit">Send Message</button>
                 </form>
+
+                <!--this is to be shown after the ajax submit succeeds-->
+                <div id="contactThankYou" class="thankYouCard" style="display:none;">
+                    <h2>Thank you</h2>
+                    <p>Your message was sent.</p>
+                </div>
+
             </div>
         </div>
         <footer>
