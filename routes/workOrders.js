@@ -42,7 +42,7 @@ router.get("/:id", async (req, res) => {
         layout: "mainLayout",
       });
     }
-    res.render("workOrders/view", {
+    res.render("workorderDetails", {
       title: "Work Order Details",
       layout: "mainLayout",
       workOrder,
