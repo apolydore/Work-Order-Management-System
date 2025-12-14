@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta charset="utf-8">
         <title>{{title}} | WRKLY</title>
         <link rel="stylesheet" href="/css/dashboard.css">
     </head>
-
-    <body>
-        <header class="dashboardHeader">
-            <div class="headerLeft">
-                <h2>WRKLY</h2>
-            </div>
-            <nav class="mainNav">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/notifications">Notifications</a>
-                <a href="/statistics">Statistics</a>
-                <a href="/work-orders">Work Orders</a>
-                <a href="/admin/schedule">Daily Schedule</a>
-            </nav>
-            <div class="headerRight">
+    <body class="appLayout">
+        {{> sidebar}}
+        <div class="mainContent">
+        <header class="topHeader">
+            <div class="welcomeText">
+                <h1>Welcome back, {{user.firstName}}!</h1>            </div>
+            <div class="headerActions">
                 <span class="userName">{{user.firstName}} {{user.lastName}}</span>
-                <a href="/logout" class="logoutBtn">Logout</a>
-            </div>
+            </span>
+            <a href="/logout" class="signOutBtn">Sign Out</a>
+        </div>
         </header>
-
-        <main class="dashboardMain">
-            {{{body}}}
+        <main class="pageContent">
+        {{{body}}}
         </main>
-
-        <footer class="dashboardFooter">
-            <p>&copy; WRKLY.</p>
-        </footer>
-    </body>
-</html>
+    </div>
+        </body>
+    </html>

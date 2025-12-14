@@ -17,6 +17,9 @@ router.get(
         status: "pending",
       });
 
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
       const workOrdersWithContractors = await Promise.all(
         workOrders.map(async (wo) => {
           if (!wo.assignedContractorId) {
@@ -36,6 +39,10 @@ router.get(
         }),
       );
 
+      const todayWorkOrders = workOrdersWithContractors.filter((wo) => {
+        return wo.startDate === todayStr || wo.estimatedEndDate === todayStr;
+      });
+
       res.render("adminDash", {
         title: "Admin Dashboard",
         layout: "mainLayout",
@@ -51,6 +58,7 @@ router.get(
         },
         workOrders: workOrdersWithContractors,
         jobRequests,
+        todayWorkOrders,
       });
     } catch (error) {
       console.error("Error loading dashboard:", error);
