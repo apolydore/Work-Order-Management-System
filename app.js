@@ -47,10 +47,8 @@ app.use("/contact", contactRouter);
 app.use("/invoices", invoicesRouter);
 
 // middleware role based
-app.use("/", adminDashboardRoutes);
-app.use("/", dailyScheduleRoutes);
-app.use("/admin", adminOnly);
-app.use("/contractor", contractorOnly);
+app.use("/admin", authRequired, adminOnly, adminDashboardRoutes);
+app.use("/contractor", authRequired, contractorOnly, dailyScheduleRoutes);
 
 app.use(express.static("public"));
 
