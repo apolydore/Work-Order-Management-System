@@ -1,0 +1,20 @@
+<h1>Job Request Details</h1>
+<a href="/admin/dashboard">Back to Dashboard</a>
+
+<p><strong>Company:</strong> {{jobRequest.companyName}}</p>
+<p><strong>Category:</strong> {{jobRequest.category}}</p>
+<p><strong>Priority:</strong> {{jobRequest.priority}}</p>
+<p><strong>Status:</strong> {{jobRequest.status}}</p>
+<p><strong>Description:</strong> {{jobRequest.description}}</p>
+<p><strong>Address:</strong> {{jobRequest.address}}, {{jobRequest.city}}, {{jobRequest.state}} {{jobRequest.zipCode}}</p>
+
+{{#if isPending}}
+<form action="/job-requests/{{jobRequest._id}}/approve" method="POST" style="display:inline;">
+<button type="submit">Approve & Create Work Order</button>
+</form>
+<form action="/job-requests/{{jobRequest._id}}/reject" method="POST" style="display:inline;">
+<button type="submit">Reject</button>
+</form>
+{{else}}
+<p>This job request has been {{jobRequest.status}}.</p>
+{{/if}}

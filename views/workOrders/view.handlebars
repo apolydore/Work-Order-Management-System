@@ -1,0 +1,39 @@
+<h1>Work Order Details</h1>
+<a href="/admin/dashboard">Back to Dashboard</a>
+
+<p><strong>ID:</strong> {{workOrder._id}}</p>
+<p><strong>Company:</strong> {{workOrder.companyName}}</p>
+<p><strong>Status:</strong> {{workOrder.status}}</p>
+<p><strong>Priority:</strong> {{workOrder.priority}}</p>
+<p><strong>Description:</strong> {{workOrder.description}}</p>
+<p><strong>Address:</strong> {{workOrder.address}}, {{workOrder.city}}, {{workOrder.state}} {{workOrder.zipCode}}</p>
+
+{{#if isAdmin}}
+<h2>Assign Contractor</h2>
+<form action="/work-orders/{{workOrder._id}}/assign" method="POST">
+<select name="contractorId" required>
+<option value="">-- Select Contractor --</option>
+{{#each contractors}}
+<option value="{{this._id}}" {{#if this.isAssigned}}selected{{/if}}>{{this.name}} ({{this.skills}})</option>
+{{/each}}
+</select>
+<button type="submit">Assign</button>
+</form>
+{{/if}}
+
+<h2>Comments</h2>
+{{#if workOrder.comments.length}}
+<ul>
+  {{#each workOrder.comments}}
+  <li><strong>{{this.name}}:</strong> {{this.comment}}</li>
+  {{/each}}
+</ul>
+{{else}}
+<p>No comments.</p>
+{{/if}}
+
+<form action="/work-orders/{{workOrder._id}}/comment" method="POST">
+  <textarea name="comment" placeholder="Add comment..."
+required></textarea>
+  <button type="submit">Add Comment</button>
+</form>

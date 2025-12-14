@@ -15,6 +15,8 @@ import {
   adminOnly,
   contractorOnly,
 } from "./middleware.js";
+import adminDashboardRoutes from "./routes/adminDashboard.js";
+import dailyScheduleRoutes from "./routes/dailySchedule.js";
 
 app.use(express.json());
 //this is a middleware that parses the form and puts it into the request body
@@ -37,15 +39,14 @@ app.use("/signup", isAuthenticated);
 app.use("/dashboard", authRequired);
 app.use("/notifications", authRequired);
 app.use("/statistics", authRequired);
-app.use("/job-requests", jobRequestsRouter);
-app.use("/work-orders", authRequired, workOrdersRouter);
 
-app.use("/contact", contactRouter); 
+app.use("/contact", contactRouter);
 
 // middleware role based
+app.use("/", adminDashboardRoutes);
+app.use("/", dailyScheduleRoutes);
 app.use("/admin", adminOnly);
 app.use("/contractor", contractorOnly);
-
 
 app.use(express.static("public"));
 
@@ -58,7 +59,14 @@ app.use("/api/statistics", statisticsRouter);
 // for pages.js
 app.use("/", pagesRouter);
 
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
+app.engine(
+  "handlebars",
+  exphbs.engine({
+    defaultLayout: "main",
+    partialsDir: "./views/partials",
+  }),
+);
+
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 

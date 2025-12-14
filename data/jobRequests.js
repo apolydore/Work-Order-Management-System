@@ -13,8 +13,8 @@ const ensureActiveCompany = async (companyName) => {
   });
 
   //changing this bc doc might be null if company doesn't exist
-  if (!doc) throw 'company not found';
-  if (doc.isActive !== true) throw 'company is inactive';
+  if (!doc) throw "company not found";
+  if (doc.isActive !== true) throw "company is inactive";
   return doc;
 };
 
@@ -48,15 +48,19 @@ exportedMethods.createJobRequest = async (
     createdAt: new Date(),
   };
 
-  if (attachmentUrl && typeof attachmentUrl === 'string' && attachmentUrl.trim()){
-    const trimmedUrl = v.checkString(attachmentUrl, 'attachmentUrl');
+  if (
+    attachmentUrl &&
+    typeof attachmentUrl === "string" &&
+    attachmentUrl.trim()
+  ) {
+    const trimmedUrl = v.checkString(attachmentUrl, "attachmentUrl");
 
     //simple validation for url
-    if (!/^https?:\/\/.+/i.test(trimmedUrl)){
-      throw 'attachmentUrl must start with http:// or https://'
+    if (!/^https?:\/\/.+/i.test(trimmedUrl)) {
+      throw "attachmentUrl must start with http:// or https://";
     }
 
-    newReq.attachmentUrl = trimmedUrl; 
+    newReq.attachmentUrl = trimmedUrl;
   }
 
   const st = v.statusJR(status);
@@ -73,9 +77,12 @@ exportedMethods.createJobRequest = async (
 
 // read
 exportedMethods.getJobRequestById = async (id) => {
+  console.log("getJobRequestById called with:", id);
   const objId = v.checkId(id);
+  console.log("objId created", objId);
   const col = await jobRequests();
   const doc = await col.findOne({ _id: objId });
+  console.log("doc found:", doc ? "yes" : "no");
   if (!doc) throw "job request not found";
   return normalize(doc);
 };
@@ -122,15 +129,15 @@ exportedMethods.updateJobRequest = async (id, updates) => {
   if (updates.zipCode !== undefined)
     toSet.zipCode = v.checkZip(updates.zipCode, "zipCode");
 
-  if (updates.attachmentUrl !== undefined){
+  if (updates.attachmentUrl !== undefined) {
     //allow to clear it by sending an empty string or null
-    if (updates.attachmentUrl === null || updates.attachmentUrl===''){
+    if (updates.attachmentUrl === null || updates.attachmentUrl === "") {
       toSet.attachmentUrl = null;
     } else {
-      const trimmedUrl = v.checkString(updates.attachmentUrl, 'attachmentUrl');
+      const trimmedUrl = v.checkString(updates.attachmentUrl, "attachmentUrl");
 
-      if (!/^https?:\/\/.+/i.test(trimmedUrl)){
-        throw 'attachmentUrl must start with http:// or https://';
+      if (!/^https?:\/\/.+/i.test(trimmedUrl)) {
+        throw "attachmentUrl must start with http:// or https://";
       }
       toSet.attachmentUrl = trimmedUrl;
     }
@@ -148,8 +155,8 @@ exportedMethods.updateJobRequest = async (id, updates) => {
     { $set: toSet },
     { returnDocument: "after" },
   );
-  if (!updateInfo.value) throw "job request not found";
-  return normalize(updateInfo.value);
+  if (!updateInfo) throw "job request not found";
+  return normalize(updateInfo);
 };
 
 // delete

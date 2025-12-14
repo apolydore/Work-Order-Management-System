@@ -190,8 +190,8 @@ exportedMethods.updateWorkOrder = async (id, updates) => {
     { $set: toSet },
     { returnDocument: "after" },
   );
-  if (!updateInfo.value) throw "work order not found";
-  return normalize(updateInfo.value);
+  if (!updateInfo) throw "work order not found";
+  return normalize(updateInfo);
 };
 
 // add comment
