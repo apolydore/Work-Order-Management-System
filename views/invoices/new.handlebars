@@ -1,0 +1,50 @@
+<h1>Create Invoice</h1>
+
+{{#if error}}
+    <p class="error">{{error}}</p>
+{{/if}}
+
+<form action="/invoices" method="POST">
+    <label>Work Order</label>
+    <select name="workOrderId" required>
+        <option value="">--Select Work Order--</option>
+        {{#each workOrders}}
+            <option value="{{this._id}}">{{this.companyName}} ({{this.status}})</option>
+        {{/each}}
+    </select>
+
+    <label>Dataset Work IDs (optional, separate by comma)</label>
+    <input type="text" name="datasetWorkIds" placeholder="ex: W1001, W1002">
+
+    <label>Tax Rate (ex: 0.08 for 8%)</label>
+    <input type="number" name="taxRate" min="0" step="0.01" value="0">
+
+    <h2>Line Items</h2>
+    <div class="invoiceRow">
+        <select name="chargeCode" required>
+            <option value="">--Select Charge Code--</option>
+            {{#each chargeList}}
+                <option value="{{this._id}}">{{this._id}} - {{this.description}}</option>
+            {{/each}}
+        </select>
+
+        <input name="description" placeholder="optional description override">
+        <input name="quantity" type="number" min="1" value="1">
+        <input name="price" type="number" min="0" step="0.01" placeholder="optional price override">
+    </div>
+
+    <div class="invoiceRow">
+        <select name="chargeCode">
+            <option value="">--Select Charge Code--</option>
+            {{#each chargeList}}
+                <option value="{{this._id}}">{{this._id}} - {{this.description}}</option>
+            {{/each}}
+        </select>
+
+        <input name="description" placeholder="optional description override">
+        <input name="quantity" type="number" min="1" value="1">
+        <input name="price" type="number" min="0" step="0.01" placeholder="optional price override">
+    </div>
+
+    <button type="submit">Generate Invoice</button>
+</form>

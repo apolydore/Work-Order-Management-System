@@ -4,28 +4,50 @@
 <p><strong>ID:</strong> {{workOrder._id}}</p>
 <p><strong>Company:</strong> {{workOrder.companyName}}</p>
 <p><strong>Status:</strong> {{workOrder.status}}</p>
+
+<h2>Update Status</h2>
+<form action="/work-orders/{{workOrder._id}}/status" method="POST">
+  <select name="status" required>
+    <option value="not started">not started</option>
+    <option value="in progress">in progress</option>
+    <option value="completed">completed</option>
+    <option value="cancelled">cancelled</option>
+  </select>
+  <button type="submit">Update</button>
+</form>
+
 <p><strong>Priority:</strong> {{workOrder.priority}}</p>
 <p><strong>Description:</strong> {{workOrder.description}}</p>
 <p><strong>Address:</strong> {{workOrder.address}}, {{workOrder.city}}, {{workOrder.state}} {{workOrder.zipCode}}</p>
 
 {{#if isAdmin}}
-<h2>Assign Contractor</h2>
-<form action="/work-orders/{{workOrder._id}}/assign" method="POST">
-<select name="contractorId" required>
-<option value="">-- Select Contractor --</option>
-{{#each contractors}}
-<option value="{{this._id}}" {{#if this.isAssigned}}selected{{/if}}>{{this.name}} ({{this.skills}})</option>
-{{/each}}
-</select>
-<button type="submit">Assign</button>
-</form>
+  <h2>Assign Contractor</h2>
+  <form action="/work-orders/{{workOrder._id}}/assign" method="POST">
+    <select name="contractorId" required>
+      <option value="">-- Select Contractor --</option>
+      {{#each contractors}}
+        <option value="{{this._id}}" {{#if this.isAssigned}}selected{{/if}}>{{this.name}} ({{this.skills}})</option>
+      {{/each}}
+    </select>
+    <button type="submit">Assign</button>
+  </form>
 {{/if}}
 
 <h2>Comments</h2>
 {{#if workOrder.comments.length}}
 <ul>
   {{#each workOrder.comments}}
-  <li><strong>{{this.name}}:</strong> {{this.comment}}</li>
+    <li>
+      <strong>{{this.name}}:</strong> {{this.comment}}
+
+      {{#if ../isAdmin}}
+        {{#if this._id}}
+          <form action="/work-orders/{{../workOrder._id}}/comment/{{this._id}}/delete" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        {{/if}}
+      {{/if}}
+    </li>
   {{/each}}
 </ul>
 {{else}}

@@ -1,0 +1,58 @@
+<h1>Invoice Details</h1>
+
+<a href="/invoices">Back to Invoices</a>
+
+<p><bdi>Invoice ID:</bdi> {{invoice._id}}</p>
+<p><bdi>Work Order ID:</bdi> {{invoice.workOrderId}}</p>
+<p><bdi>Company:</bdi> {{invoice.companyName}}</p>
+<p><bdi>Status:</bdi> {{invoice.status}}</p>
+
+<h2>Items</h2>
+
+{{#if invoice.item.length}}
+    <table class="dataTable">
+        <thead>
+            <tr>
+                <th>Charge Code</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Line Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each invoice.items}}
+                <tr>
+                    <td>{{this.chargeCode}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.lineTotal}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>No items.</p>
+{{/if}}
+
+<h2>Totals</h2>
+<p><bdi>Subtotal:</bdi> {{invoice.subtotal}}</p>
+<p><bdi>Tax Rate:</bdi> {{invoice.taxRate}}</p>
+<p><bdi>Tax:</bdi> {{invoice.tax}}</p>
+<p><bdi>Total:</bdi> {{invoice.total}}</p>
+
+<h2>Update Status</h2>
+<form action="/invoices/{{invoice._id}}/status" method="POST">
+    <select name="status" required>
+        <option value="draft">draft</option>
+        <option value="issued">issued</option>
+        <option value="paid">paid</option>
+        <option value="cancelled">cancelled</option>
+    </select>
+    <button type="submit">Save</button>
+</form>
+
+<form action="/invoices/{{invoice._id}}/delete" method="POST" style="margin-top: 10px;">
+    <button type="submit">Delete Invoice</button>
+</form>

@@ -17,6 +17,7 @@ import {
 } from "./middleware.js";
 import adminDashboardRoutes from "./routes/adminDashboard.js";
 import dailyScheduleRoutes from "./routes/dailySchedule.js";
+import invoicesRouter from "./routes/invoices.js";
 
 app.use(express.json());
 //this is a middleware that parses the form and puts it into the request body
@@ -39,8 +40,11 @@ app.use("/signup", isAuthenticated);
 app.use("/dashboard", authRequired);
 app.use("/notifications", authRequired);
 app.use("/statistics", authRequired);
+app.use("/job-requests", authRequired, jobRequestsRouter);
+app.use("/work-orders", authRequired, workOrdersRouter);
 
 app.use("/contact", contactRouter);
+app.use("/invoices", invoicesRouter);
 
 // middleware role based
 app.use("/", adminDashboardRoutes);

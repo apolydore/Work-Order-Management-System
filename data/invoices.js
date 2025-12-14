@@ -203,21 +203,24 @@ exportedMethods.updateInvoice = async (id, updates) => {
 
   if (Object.keys(toSet).length === 0) throw "no valid fields to update";
 
-  const updateInfo = await col.findOneAndUpdate(
-    { _id: objId },
-    { $set: toSet },
-    { returnDocument: "after" },
-  );
-  if (!updateInfo.value) throw "invoice not found";
-  return normalize(updateInfo.value);
+  const updateInfo = await col.updateOne({_id: objId}, {$set: toSet});
+  if (updateInfo.matchedCount===0) throw 'invoice not found'; 
+
+  const updatedDoc = await col.findOne({_id: objId});
+  if (!updatedDoc) throw 'invoice not found';
+  return normalize(updatedDoc);
 };
 
 exportedMethods.removeInvoice = async (id) => {
   const objId = v.checkId(id);
   const col = await invoices();
-  const deletion = await col.findOneAndDelete({ _id: objId });
-  if (!deletion.value) throw "invoice not found";
-  return normalize(deletion.value);
+
+  const existing = await col.findOne({_id: objId});
+  if (!existing) throw 'invoice not found';
+
+  const delInv = await col.deleteOne({_id: objId});
+  if (delInv.deletedCount === 0) throw 'invoice not found';
+  return normalize(existing);
 };
 
 export default exportedMethods;

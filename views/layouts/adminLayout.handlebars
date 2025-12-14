@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+    
+    <body class="appLayout">
+        {{> sidebar}}
+        <div class="mainContent">
+            <header class="topHeader">
+                <div class="welcomeText">
+                    {{#if user}}
+                        <h1>Welcome back, {{user.firstName}}!</h1>  
+                    {{else}}
+                        <h1>Welcome back!</h1>
+                    {{/if}}          
+                </div>
+                
+                <div class="headerActions">
+                    <span class="userName">{{user.firstName}} {{user.lastName}}</span>
+                    <a href="/logout" class="signOutBtn">Sign Out</a>
+                </div>
+            </header>
+            <main class="pageContent">
+                {{{body}}}
+            </main>
+        </div>
+    </body>
+</html>
