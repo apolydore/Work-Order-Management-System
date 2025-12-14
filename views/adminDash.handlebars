@@ -1,17 +1,27 @@
 <div class="dashGrid">
     <section class="card alertsCard">
         <h2>Alerts</h2>
-        {{#if jobRequests.length}}
-        <ul class="alertList">
-            {{#each jobRequests}}
-                <li class="alertItem">
-                    <span class="alertBadge {{this.priority}}">{{this.priority}}</span>
-                    <span>{{this.companyName}}</span>
-                </li>
+        
+        {{#if alerts.length}}
+            <ul class="alertList">
+                {{#each alerts}}
+                    <li class="alertItem">
+                        <span class="alertBadge {{this.type}}">{{this.label}}</span>
+
+                        {{#if this.href}}
+                            <a href="{{this.href}}">{{this.title}}</a>
+                        {{else}}
+                            <span>{{this.title}}</span>
+                        {{/if}}
+
+                        {{#if this.detail}}
+                            <span class="alertDetail">{{this.detail}}</span>
+                        {{/if}}
+                    </li>
                 {{/each}}
-        </ul>
+            </ul>
         {{else}}
-        <p class="noData">No pending alerts</p>
+            <p class="noData">No pending alerts</p>
         {{/if}}
     </section>
 
@@ -24,7 +34,7 @@
     </div>
     <div class="statusBreakdown">
         <div class="statusRow">
-            <span class="dot completed></span>
+            <span class="dot completed"></span>
             <span>Completed</span>
             <span class="count">{{statistics.completed}}</span>
         </div>
@@ -47,7 +57,7 @@
     <ul class="scheduleList">
         {{#each todayWorkOrders}}
         <li class="scheduleItem">
-            <span class="scheduleTime">{{this.startTime}} - {{this.endTime}}</span>
+            <span class="scheduleTime">{{this.startDate}}-{{this.estimatedEndDate}}</span>
             <span class="scheduleCompany">{{this.companyName}}</span>
             <span class="scheduleStatus {{this.status}}">{{this.status}}</span>
         </li>
@@ -61,49 +71,50 @@
 <section class="card workOrdersCard">
     <h2>Work Orders</h2>
     <div class="scrollableContent">
-    {{#if workOrders.length}}
-    <table class="dataTable">
-        <thead>
-            <tr>
-                <th>Company</th>
-                <th>Status</th>
-                <th>Contractor</th>
-            </tr>
-            </thead>
-            <tbody>
-                {{#each workOrders}}
-                    <tr>
-                        <td>{{this.companyName}}</td>
-                        <td><span class="statusBadge {{this.status}}">{{this.status}}</span></td>
-                        <td>{{this.contractorName}}</td>
-                        <td><a href="/work-orders/{{this._id}}" class="viewLink">View</a></td>
-                    </tr>
-                {{/each}}
-            </tbody>
-    </table>
-    {{else}}
-        <p class="noData">No work orders yet</p>
-    {{/if}}
+        {{#if workOrders.length}}
+        <table class="dataTable">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Contractor</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {{#each workOrders}}
+                        <tr>
+                            <td>{{this.companyName}}</td>
+                            <td><span class="statusBadge {{this.status}}">{{this.status}}</span></td>
+                            <td>{{this.contractorName}}</td>
+                            <td><a href="/work-orders/{{this._id}}" class="viewLink">View</a></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+        </table>
+        {{else}}
+            <p class="noData">No work orders yet</p>
+        {{/if}}
+    </div>
 </section>
 
 <section class="card jobRequestsCard">
     <h2>Pending Job Requests</h2>
     <div class="scrollableContent">
-    {{#if jobRequests.length}}
-        <ul class="requestList">
-            {{#each jobRequests}}
-                <li class="requestItem">
-                    <div class="requestInfo">
-                        <span class="requestCompany">{{this.companyName}}</span>
-                        <span class="requestsCategory">{{this.category}}</span>
-                    </div>
-                    <a href="/job-requests/{{this._id}}" class="viewLink">Review</a>
-                </li>
+        {{#if jobRequests.length}}
+            <ul class="requestList">
+                {{#each jobRequests}}
+                    <li class="requestItem">
+                        <div class="requestInfo">
+                            <span class="requestCompany">{{this.companyName}}</span>
+                            <span class="requestsCategory">{{this.category}}</span>
+                        </div>
+                        <a href="/job-requests/{{this._id}}" class="viewLink">Review</a>
+                    </li>
                 {{/each}}
             </ul>
-            {{else}}
-                <p class="noData">No pending requests</p>
-            {{/if}}
-        </div>
+        {{else}}
+            <p class="noData">No pending requests</p>
+        {{/if}}
+    </div>
 </section>
 </div>

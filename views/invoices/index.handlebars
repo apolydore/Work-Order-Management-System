@@ -1,0 +1,27 @@
+<h1>Invoices</h1>
+<a href="/invoices/new">Create Invoice</a>
+
+{{#if invoices.length}}
+    <table class="dataTable">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each invoices}}
+                <tr>
+                    <td>{{this.companyName}}</td>
+                    <td>{{this.status}}</td>
+                    <td>{{this.total}}</td>
+                    <td><a href="/invoices/{{this._id}}">View</a></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>No invoices yet.</p>
+{{/if}}

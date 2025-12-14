@@ -38,7 +38,7 @@ router.get("/overdue", async (req, res) => {
 
     const overdueJobs = await workOrdersCol
       .find({
-        status: "in progress",
+        status: {$in: ["in progress", "not started"]},
         estimatedEndDate: { $lt: currentDate },
       })
       .sort({ estimatedEndDate: 1 })

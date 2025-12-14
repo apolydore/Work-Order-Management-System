@@ -1,5 +1,6 @@
 import { workOrders, jobRequests, users } from "../config/mongoCollections.js";
 import { validators as v } from "./validators.js";
+import {ObjectId} from "mongodb";
 
 const exportedMethods = {};
 
@@ -74,7 +75,7 @@ const buildToSet = async (updates) => {
     city: (value) => v.checkString(value, "city"),
     state: (value) => v.checkState(value),
     zipCode: (value) => v.checkZip(value),
-    status: (value) => statusWO(value),
+    status: (value) => v.statusWO(value),
     startDate: (value) => v.checkDate(value, "startDate"),
     estimatedEndDate: (value) => v.checkDate(value, "estimatedEndDate"),
     latitude: (value) => (value === null ? null : checkNum(value, "latitude")),
@@ -117,7 +118,7 @@ exportedMethods.createWorkOrder = async (
     jobRequestId: v.checkId(jobRequestId, "jobRequestId"),
     companyName: v.checkString(companyName, "companyName"),
     assignedContractorId: assignedContractorId
-      ? v.checkId(assignedContractorId, "assignedContracorId")
+      ? v.checkId(assignedContractorId, "assignedContractorId")
       : null,
     priority: v.priority(priority),
     description: v.checkString(description, "description"),
@@ -179,34 +180,69 @@ exportedMethods.updateWorkOrder = async (id, updates) => {
   if (!updates || typeof updates !== "object")
     throw "updates must be an object";
 
-  const objId = v.checkId(id);
+  const objId = v.checkId(id, 'workOrderId');
   const toSet = await buildToSet(updates);
 
   if (Object.keys(toSet).length === 0) throw "no updates to apply";
 
   const col = await workOrders();
-  const updateInfo = await col.findOneAndUpdate(
-    { _id: objId },
-    { $set: toSet },
-    { returnDocument: "after" },
-  );
-  if (!updateInfo) throw "work order not found";
-  return normalize(updateInfo);
+  
+  //theres a bug, so Im going to try updating first and then fetching the updated doc
+  const updateInfo = await col.updateOne({_id: objId}, {$set: toSet});
+
+  if (updateInfo.matchedCount === 0) throw 'work order not found';
+
+  const updatedDoc = await col.findOne({_id: objId});
+  if (!updatedDoc) throw 'work order not found';
+  return normalize(updatedDoc);
 };
 
 // add comment
 exportedMethods.addComment = async (workOrderId, commentObj) => {
   const objId = v.checkId(workOrderId, "workOrderId");
-  const comment = v.commentObj(commentObj, "comment");
+
+  //have to generate an id, so that we can delete comments
+  const base = {
+    _id: new ObjectId().toString(),
+    name: commentObj.name,
+    comment: commentObj.comment
+  };
+
+  const comment = v.commentObj(base, "comment");
 
   const col = await workOrders();
-  const updateInfo = await col.findOneAndUpdate(
-    { _id: objId },
-    { $push: { comments: comment } },
-    { returnDocument: "after" },
+  
+  //same problem as the update work order, so not using findOneAndUpdate
+  const updateInfo = await col.updateOne(
+    {_id:objId},
+    {$push: {comments: comment}}
   );
-  if (!updateInfo.value) throw "work order not found";
-  return normalize(updateInfo.value);
+
+  if (updateInfo.matchedCount === 0) throw 'work order not found';
+
+  const updatedDoc = await col.findOne({_id: objId});
+  if (!updatedDoc) throw 'work order not found';
+  return normalize(updatedDoc);
+};
+
+//remove comment
+exportedMethods.removeComment = async (workOrderId, commentId) => {
+  const objId = v.checkId(workOrderId, "workOrderId");
+  const cId = v.checkString(commentId, "commentId");
+
+  const col = await workOrders();
+
+  const updateInfo = await col.updateOne(
+    {_id: objId},
+    {$pull: {comments:{_id:cId}}}
+  );
+
+  if (updateInfo.matchedCount === 0) throw 'work order not found';
+
+  const updatedDoc = await col.findOne({_id: objId});
+  if (!updatedDoc) throw 'work order not found';
+
+  return normalize(updatedDoc);
 };
 
 //delete

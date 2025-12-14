@@ -299,8 +299,8 @@ const seedDatabase = async () => {
         status: "in progress",
         priority: "high",
         description: jobRequests[0].description,
-        startDate: "2025-01-15",
-        estimatedEndDate: "2025-01-20",
+        startDate: new Date("2025-01-15"),
+        estimatedEndDate: new Date("2025-01-20"),
         comments: [
           {
             _id: "cm_1",
@@ -322,8 +322,8 @@ const seedDatabase = async () => {
         status: "not started",
         priority: "medium",
         description: jobRequests[1].description,
-        startDate: "2025-01-22",
-        estimatedEndDate: "2025-01-28",
+        startDate: new Date("2025-01-22"),
+        estimatedEndDate: new Date("2025-01-28"),
         comments: [
           {
             _id: "cm_2",
