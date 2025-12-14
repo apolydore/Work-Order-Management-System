@@ -40,7 +40,7 @@ app.use("/signup", isAuthenticated);
 app.use("/dashboard", authRequired);
 app.use("/notifications", authRequired);
 app.use("/statistics", authRequired);
-app.use("/job-requests", authRequired, jobRequestsRouter);
+app.use("/job-requests", jobRequestsRouter);
 app.use("/work-orders", authRequired, workOrdersRouter);
 
 app.use("/contact", contactRouter);
