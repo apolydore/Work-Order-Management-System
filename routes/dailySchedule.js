@@ -5,21 +5,28 @@ import { authRequired, adminOnly } from "../middleware.js";
 
 const router = Router();
 
-const getTodayDate = () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+const getMonday = (date) => {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(d.setDate(diff));
 };
 
-// helper function to compare dates
-const compareDates = (date1, date2) => {
-  const d1 = new Date(date1);
-  const d2 = new Date(date2);
-  if (d1 < d2) return -1;
-  if (d1 > d2) return 1;
-  return 0;
+const formatDate = (date) => {
+  const d = new Date(date);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+const addDays = (date, days) => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+};
+
+const overlapsDate = (wo, dateStr) => {
+  const start = formatDate(wo.startDate);
+  const end = wo.estimatedEndDate ? formatDate(wo.estimatedEndDate) : start;
+  return start <= dateStr && dateStr <= end;
 };
 
 router.get(
@@ -29,23 +36,33 @@ router.get(
 
   async (req, res) => {
     try {
-      const today = getTodayDate();
-      const allWorkOrders = await workOrdersData.getWorkOrders();
+      const today = new Date();
+      const currentMonday = getMonday(today);
+      const weekOffset = parseInt(req.query.week) || 0;
+      const targetMonday = addDays(currentMonday, weekOffset * 7);
 
-      const startingToday = [];
-      const inProgress = [];
-      const dueToday = [];
-      const overdue = [];
+      const weekDays = [];
+      const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      for (let i = 0; i < 7; i++) {
+        const date = addDays(targetMonday, i);
+        weekDays.push({
+          name: dayNames[i],
+          date: formatDate(date),
+          displayDate: `${date.getMonth() + 1}/${date.getDate()}`,
+          isToday: formatDate(date) === formatDate(today),
+          workOrders: [],
+        });
+      }
+
+      const allWorkOrders = await workOrdersData.getWorkOrders();
 
       for (const wo of allWorkOrders) {
         let contractorName = "Unassigned";
-        try {
-          const contractor = await usersData.getUserById(
-            wo.assignedContractorId.toString(),
-          );
-          contractorName = `${contractor.firstName} ${contractor.lastName}`;
-        } catch (e) {
-          // keep as unassigned
+        if (wo.assignedContractorId) {
+          try {
+            const contractor = await usersData.getUserById(wo.assignedContractorId);
+            contractorName = `${contractor.firstName} ${contractor.lastName}`;
+          } catch (e) { }
         }
 
         const workOrder = {
@@ -54,49 +71,35 @@ router.get(
           contractorName,
         };
 
-        // check if starting today
-        if (wo.startDate === today) {
-          startingToday.push(workOrder);
-        }
-
-        // check if in progress (between start and end, but not starting or ending today)
-        const afterStart = compareDates(today, wo.startDate) > 0;
-        const beforeEnd = compareDates(today, wo.estimatedEndDate) < 0;
-        if (afterStart && beforeEnd) {
-          inProgress.push(workOrder);
-        }
-
-        // check if due today
-        if (wo.estimatedEndDate === today) {
-          dueToday.push(workOrder);
-        }
-
-        // check if overdue
-        const pastDue = compareDates(today, wo.estimatedEndDate) > 0;
-        if (pastDue && wo.status !== "completed") {
-          overdue.push(workOrder);
+        for (const day of weekDays) {
+          if (overlapsDate(wo, day.date)) {
+            day.workOrders.push(workOrder);
+          }
         }
       }
 
-      return res.render("dailySchedule", {
-        title: "Daily Schedule",
+      const weekStart = targetMonday;
+      const weekEnd = addDays(targetMonday, 6);
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const weekRangeDisplay = `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekEnd.getFullYear()}`
+
+      return res.render("schedule/view", {
+        title: "Weekly Schedule",
+        layout: "adminLayout",
         user: req.session.user,
-        today,
-        startingToday,
-        inProgress,
-        dueToday,
-        overdue,
-        layout: "mainLayout",
+        weekDays,
+        weekRangeDisplay,
+        prevWeek: weekOffset - 1,
+        nextWeek: weekOffset + 1,
+        currentWeek: weekOffset === 0,
       });
     } catch (e) {
-      console.error("Error loading daily schedule:", e);
       return res.status(500).render("error", {
         title: "Error",
         error: "Could not load schedule",
-        layout: "mainLayout",
+        layout: "adminLayout",
       });
     }
-  },
-);
+  });
 
-export default router;
+     export default router;

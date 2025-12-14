@@ -1,0 +1,30 @@
+<div class="scheduleHeader">
+    <a href="/admin/schedule?week={{prevWeek}}" class="viewLink">&larr; Prev</a>
+    <h2>{{weekRangeDisplay}}</h2>
+    {{#unless currentWeek}}
+        <a href="/admin/schedule" class="viewLink">Today</a>
+    {{/unless}}
+    <a href="/admin/schedule?week={{nextWeek}}" class="viewLink">Next &rarr;</a>
+</div>
+<div class="weekGrid">
+    {{#each weekDays}}
+    <div class="dayColumn {{#if this.isToday}}todayColumn{{/if}}">
+        <div class="dayHeader">
+            <span class="dayName">{{this.name}}</span>
+            <span class="dayDate">{{this.displayDate}}</span>
+        </div>
+        <div class="dayContent">
+            {{#if this.workOrders.length}}
+                {{#each this.workOrders}}
+                <a href="/work-orders/{{this._id}}" class="scheduleItem">
+                    <span class="scheduleCompany">{{this.companyName}}</span>
+                    <span class="scheduleStatus {{this.status}}">{{this.status}}</span>
+                </a>
+                {{/each}}
+            {{else}}
+                <p class="noData">No jobs</p>
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+</div>

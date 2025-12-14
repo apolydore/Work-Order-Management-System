@@ -102,9 +102,9 @@
     grid-row: 1;
 }
 
-.alertBadge.overdue{
+.alertBadge.overdue {
     background-color: #ffe5e5;
-    color: #b10; 
+    color: #b10;
 }
 
 .statusCard {
@@ -251,6 +251,49 @@
 .dataTable td {
     padding: 12px;
     border-bottom: 1px solid #f1f5f9;
+}
+
+/* schedule */
+
+.scheduleHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.scheduleHeader h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.weekGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.dayColumn {
+    background: white;
+    border-radius: 8px;
+    min-height: 300px;
+}
+
+.todayColumn {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+
+.dayName {
+    display: block;
+    font-weight: 600;
+}
+
+.dayContent {
+    padding: 8px;
 }
 
 /* misc */
