@@ -6,15 +6,48 @@
 }
 .sidebar {
     width: 60px;
-    background: ghostwhite;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px 0;
+    background: transparent;
     position: fixed;
+    left: 16px;
+    top: 0;
     height: 100vh;
-    border-right: 1px solid lightgrey;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
+
+.homeLink{
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+    text-decoration: none;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 0 rgba(15,23,42,0.10), 0 6px 14px rgba(15,23,42,0.12);
+}
+
+.homeLink p{
+    margin: 0;
+    font-family:"Montserrat Alternates";
+    color:#0b1b3a;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.70);
+}
+
+.homeLink p:hover{
+    color: #8b92a3;
+}
+
 .sidebarLogo {
     width: 40px;
     height: 40px;
@@ -28,9 +61,19 @@
     margin-bottom: 24px;
 }
 .sidebarNav {
+    position: fixed;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    padding: 16px 0;
+    border-radius: 500px;
+    background: #0b1b3a;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    gap: 18px;
 }
 .sidebarLink {
     width: 40px;
@@ -38,53 +81,67 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 15px;
+    text-decoration: none;
 }
 .sidebarLink:hover {
-    background: #e2e8f0;
+    background: rgba(255,255,255,0.10);
 }
 .sidebarLink .material-icons {
-    font-size: 20px;
-    color: #64748b;
+    font-size: 15px;
+    color: #cfe3ff;
 }
 .sidebarLink:hover .material-icons {
-    color: #1e293b;
+    color: #fff;
 }
 .mainContent {
-    margin-left: 60px;
+    margin-left: 92px;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 .topHeader {
-    background: white;
-    padding: 16px 24px;
+    background: #0b1b3a; 
+    margin: 16px auto;
+    padding: 14px 22px;
+    border-radius: 0 0 18px 18px;
+    border: 1px solid #e2e8f0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 0 rgba(15,23,42,0.08), 0 10px 22px rgba(15,23,42,0.08);
+    max-width: 1200px;
+    color:#cfe3ff;
+    width: 100%;
 }
 .welcomeText h1 {
     font-size: 20px;
     font-weight: 600;
     margin: 0;
+    font-family: 'Sen';
 }
 .headerActions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
 }
 .userName {
     color: #64748b;
+    font-family: 'Roboto';
 }
 .signOutBtn {
-    background: #ef4444;
-    color: white;
+    background: #cfe3ff;
+    color: #f97316;
     padding: 8px 16px;
     border-radius: 6px;
+    font-family: 'Sen';
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 30px;
 }
 .signOutBtn:hover {
-    background: #dc2626;
+    background: #5363aa;
 }
 .pageContent {
     padding: 24px;
@@ -128,14 +185,31 @@
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-family: 'Sen';
 }
 .card h2 {
-    font-size: 16px;
+    font-size: 25px;
+    letter-spacing: 1px;
     font-weight: 600;
     margin: 0 0 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid #e2e8f0;
+    font-family: "Bebas Neue";
+    text-align: center;
+    color:#64748b;
 }
+
+.card .dataTable,
+.card .alertList,
+.card .scheduleList,
+.card .requestList,
+.card p,
+.card td,
+.card th{
+    font-family: 'Sen';
+}
+
 
 /* lists */
 .alertList,
@@ -161,6 +235,7 @@
 }
 
 /* badges */
+
 .alertBadge,
 .statusBadge {
     padding: 4px 8px;
@@ -312,4 +387,142 @@
 .scrollableContent {
     max-height: 300px;
     overflow-y: auto;
+}
+
+#notificationsPage{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#notificationsPage > h1{
+    font-family: 'Bebas Neue';
+    font-size: 50px; 
+    letter-spacing: 1px;
+    margin: 0 0 18px;
+    text-decoration: 4px solid orangered underline;
+    grid-column: 1/-1; /*helps it span both columns*/
+    text-align: center;
+}
+
+.notificationsSection{
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 25px rgba(2, 6, 23, 0.08);
+}
+
+.notificationsPage > .notificationsSection{
+    margin: 0 16px;
+}
+
+#notificationsPage .notificationsSection{
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid #eef2f7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    width: 100%;
+}
+
+#notificationsPage .notificationsSection > h2{
+    font-family: 'Sen';
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8eef6;
+}
+
+#notificationsPage .notificationsSection,
+#notificationsPage .notificationsSection *{
+    font-family: 'Roboto';
+}
+
+.alertsContainer,
+.overdueContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.alertCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #f1f5f9;
+}
+
+.alertHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.alertDate, 
+.workOrderId {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.alertBody h3{
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.alertMessage {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.alertContact{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    font-size: 13px;
+    color: #334155;
+}
+
+.alertActions{
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.btnPrimary, 
+.btnSecondary{
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btnPrimary{
+    background: #0b1b3a;
+    color: #e6f0ff;
+}
+
+.btnSecondary{
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.noData {
+    margin: 8px 0 0;
+    color: #94a3b8;
+    font-size: 14px;
+    text-align: left;
 }
