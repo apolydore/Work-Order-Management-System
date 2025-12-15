@@ -1,10 +1,10 @@
 <section id="dashboardOverview">
     <h1>Dashboard Overview</h1>
 
-    <div class="dashboardGrid">
+    <div class="dashGrid">
 
         <!-- Statistics Summary -->
-        <div class="card statisticsCard">
+        <div class="card statusCard">
             <h2>Work Order Statistics</h2>
             <div class="statsGrid">
                 <div class="statItem">
@@ -24,14 +24,14 @@
                     <span class="statLabel">Not Started</span>
                 </div>
             </div>
-            <a href="/statistics" class="cardLink">View detailed statistics →</a>
+            <a href="/statistics" class="viewLink">View detailed statistics →</a>
         </div>
 
         <!-- Alerts -->
         <div class="card alertsCard">
             <h2>Emergency Alerts</h2>
             {{#if alerts}}
-                <div class="alertsList">
+                <div class="alertList">
                     {{#each alerts}}
                         <div class="alertItem">
                             <span class="alertIcon">⚠️</span>
@@ -46,7 +46,7 @@
             {{else}}
                 <p class="noData">No emergency alerts at this time.</p>
             {{/if}}
-            <a href="/notifications" class="cardLink">View all notifications →</a>
+            <a href="/notifications" class="viewLink">View all notifications →</a>
         </div>
 
         <!-- Overdue Jobs -->
@@ -65,16 +65,43 @@
             {{else}}
                 <p class="noData">There are no overdue work orders.</p>
             {{/if}}
-            <a href="/notifications" class="cardLink">View all notifications →</a>
+            <a href="/notifications" class="viewLink">View all notifications →</a>
         </div>
 
         <!-- Placeholder for Work Orders Card -->
         <!-- Edit Below -->
-        <div class="card workOrdersCard placeholder">
-            <h2>Recent Work Orders</h2>
-            <p class="placeholderText">Work Orders feature coming soon!</p>
-            <p class="placeholderNote">Coming Soon!</p>
-            <a href="/work-orders" class="cardLink disabled">View all work orders →</a>
+        <div class="card workOrdersCard">
+            <h2>{{#if isContractor}}My Assigned Work Orders{{else}}Recent Work
+                    Orders{{/if}}</h2>
+            {{#if assignedWorkOrders.length}}
+                <div class="alertList">
+                    {{#each assignedWorkOrders}}
+                        <div class="alertItem">
+                            <div class="alertHeader">
+                                <strong>{{this.companyName}}</strong>
+                                <span class="statusBadge">{{this.status}}" ></span>
+                            </div>
+                            <p class="alertMessage">{{this.address}},
+                                {{this.city}},
+                                {{this.state}}</p>
+                            <div class="alertContact">
+                                <small>Priority: {{this.priority}}</small>
+                                {{#if this.estimatedEndDate}}
+                                    <small>Due:
+                                        {{this.estimatedEndDate}}</small>
+                                {{/if}}
+                            </div>
+                            <a
+                                href="/work-orders/{{this._id}}"
+                                class="viewLink"
+                            >View Details →</a>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p class="noData">No work orders assigned to you yet.</p>
+            {{/if}}
+            <a href="/work-orders" class="viewLink">View all work orders →</a>
         </div>
 
         <!-- Placeholder for Daily Schedule Card -->
@@ -83,7 +110,8 @@
             <h2>Today's Schedule</h2>
             <p class="placeholderText">📅 Daily Schedule feature coming soon!</p>
             <p class="placeholderNote">Coming Soon!</p>
-            <a href="/admin/schedule" class="cardLink disabled">View full schedule →</a>
+            <a href="/admin/schedule" class="viewLink disabled">View full
+                schedule →</a>
         </div>
 
     </div>
