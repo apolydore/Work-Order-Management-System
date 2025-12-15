@@ -2,29 +2,50 @@
 import { Router } from "express";
 import { contactMessages } from "../config/mongoCollections.js";
 import { workOrders } from "../config/mongoCollections.js";
+import  workOrdersData  from "../data/workOrders.js";
 const router = Router();
 
-router.get("/admin/dashboard", (req, res) => res.redirect("/dashboard"));
 
 // Dashboard page
 router.get("/dashboard", async (req, res) => {
+  if (req.session?.user?.role === "admin") {
+    return res.redirect("/admin/dashboard");
+  }
+
   try {
     const messagesCol = await contactMessages();
     const workOrdersCol = await workOrders();
     const currentDate = new Date();
+    const user = req.session?.user;
+    const isContractor = user?.role === "contractor";
+
+    // if contractor, get assigned work workOrders
+    let assignedWorkOrders = [];
+    if (isContractor && user._id) {
+      assignedWorkOrders = await workOrdersData.getWorkOrders({
+        contractorId: user._id,
+      });
+    }
 
     // Statistics
-    const completed = await workOrdersCol.countDocuments({
-      status: "completed",
-    });
-    const inProgress = await workOrdersCol.countDocuments({
-      status: "in progress",
-    });
-    const notStarted = await workOrdersCol.countDocuments({
-      status: "not started",
-    });
-    const total = await workOrdersCol.countDocuments({});
-
+    let completed, inProgress, notStarted, total;
+    if (isContractor && user._id) {
+      completed = assignedWorkOrders.filter((wo) => wo.status === "completed").length;
+      inProgress = assignedWorkOrders.filter((wo) => wo.status === "in progress").length;
+      notStarted = assignedWorkOrders.filter((wo) => wo.status === "not started").length;
+      total = assignedWorkOrders.length;
+    } else {
+      const completed = await workOrdersCol.countDocuments({
+        status: "completed",
+      });
+      const inProgress = await workOrdersCol.countDocuments({
+        status: "in progress",
+      });
+      const notStarted = await workOrdersCol.countDocuments({
+        status: "not started",
+      });
+      const total = await workOrdersCol.countDocuments({});
+    }
     // Get emergency alerts (3 alerts max for the dashboard)
     const alerts = await messagesCol
       .find({ isEmergency: true })
@@ -33,19 +54,21 @@ router.get("/dashboard", async (req, res) => {
       .toArray();
 
     // Get overdue jobs (3 max)
-    const overdueJobs = await workOrdersCol
-      .find({
-        status: "in progress",
-        estimatedEndDate: { $lt: currentDate },
-      })
-      .sort({ estimatedEndDate: 1 })
-      .limit(3)
-      .toArray();
+    let findOverDue = {
+      status: "in progress",
+      estimatedEndDate: { $lt: currentDate },
+    };
+    if (isContractor && user._id) {
+      const { ObjectId } = await import("mongodb");
+      findOverDue.assignedContractorId = new ObjectId(user._id);
+    }
+    const overDueJobs = await workOrdersCol.find(findOverDue).sort({ estimatedEndDate: 1 }).limit(3).toArray();
 
     res.render("dashboard", {
       title: "Dashboard",
       layout: "mainLayout",
-      user: req.session?.user || { firstName: "User", lastName: "" },
+      user: user || { firstName: "User", lastName: "" },
+      isContractor,
       statistics: {
         total,
         completed,
@@ -53,10 +76,11 @@ router.get("/dashboard", async (req, res) => {
         notStarted,
       },
       alerts,
-      overdueJobs,
+      overDueJobs,
+      assignedWorkOrders
     });
-  } catch (error) {
-    console.error("Error loading dashboard:", error);
+  } catch (e) {
+    console.e("Error loading dashboard:", error);
     res.status(500).send("Error loading dashboard");
   }
 });

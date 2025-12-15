@@ -186,7 +186,7 @@ router.post("/:id/reject", async (req, res) => {
     await jobRequestsData.updateJobRequest(req.params.id, {
       status: "rejected",
     });
-    return res.redirect("/job-requests");
+    return res.redirect("/admin/dashboard");
   } catch (e) {
     return res.redirect(`/job-requests/${req.params.id}`);
   }

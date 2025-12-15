@@ -4,7 +4,7 @@ const isAuthenticated = (req, res, next) => {
     if (req.session.user.role === "admin") {
       return res.redirect("/admin/dashboard");
     }
-    return res.redirect("/contractor/dashboard");
+    return res.redirect("/dashboard");
   }
   next();
 };
